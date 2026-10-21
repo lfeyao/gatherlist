@@ -199,7 +199,7 @@ $('#more-filters').addEventListener('click',()=>{const details=$('#brief-disclos
 $('#brief-disclosure').addEventListener('toggle',()=>$('#more-filters').setAttribute('aria-expanded',String($('#brief-disclosure').open)));
 function updateFilterDraft(){
   const guests=Number($('#quick-guests').value),budget=Number($('#quick-budget').value);
-  $$('[data-guest-choice]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.guestChoice)===guests)));
+  $$('[data-guest-choice]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.guestChoice)===24?guests>=24:Number(button.dataset.guestChoice)===guests)));
   $$('[data-budget-choice]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.budgetChoice)===budget)));
   $('[data-guest-step="-1"]').disabled=guests<=1;$('[data-guest-step="1"]').disabled=guests>=10000;
   const slider=$('#budget-range');slider.max=Math.max(10000,Math.ceil((budget||10000)/1000)*1000);slider.value=budget||100;$('#budget-range-max').textContent=money(Number(slider.max));

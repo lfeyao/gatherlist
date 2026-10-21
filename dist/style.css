@@ -71,3 +71,5 @@ body:not([data-workspace]) [data-review-id]{display:none}
 @media(max-width:480px){.site-header{min-height:50px;padding:6px 3%;gap:6px;grid-template-columns:minmax(0,1fr) auto auto}.place-name>span{font-size:18px;letter-spacing:-.8px}.brand-mark{width:16px;height:24px}.header-actions{gap:8px}.filter-summary{border-radius:999px}.filter-trigger{height:36px;padding:0 8px;font-size:13px;gap:5px;min-width:0}.filter-trigger .filter-people{width:13px;height:13px}.filter-trigger .filter-chevron{width:9px;height:9px;margin:0}.summary-unit{display:none}.filter-separator{height:20px}.site-header .discovery-mode .icon{width:13px;height:13px}.account-icon{width:14px;height:14px}.appearance-toggle{width:27px;height:27px}.filter-panel-heading h2{font-size:29px}.filter-popover{padding:21px;border-radius:16px}.header-brief{gap:0}.filter-presets{gap:6px}#budget-popover #quick-budget{font-size:33px}}
 .filter-panel-heading h2:focus{outline:none}
 @media(max-width:480px){.site-header{gap:5px}.header-actions{gap:7px}}
+
+.filter-presets.guest-presets{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.filter-presets.guest-presets>button{min-width:0;padding:8px 0}
