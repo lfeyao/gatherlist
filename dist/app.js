@@ -151,7 +151,9 @@ function renderRoom(enabled){
   $('.intro').hidden=enabled;
   $('.discovery-mode').hidden=view!=='all';
   $('.collection-divider').hidden=enabled;
-  $$('[data-layout]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===discoveryLayout)));
+  $('#layout-label').textContent=discoveryLayout==='room'?'Room view':'Grid view';
+  const layoutAction=discoveryLayout==='room'?'Switch to mood grid':'Switch to room view';
+  $('#layout-toggle').setAttribute('aria-label',layoutAction);$('#layout-toggle').title=layoutAction;
   if(!enabled)return;
   const mood=moods.find(m=>m.id===activeRoom),index=MOODS.indexOf(activeRoom);
   $('#room-copy').innerHTML=`<h1>${escape(mood.title)}</h1>`;
@@ -175,7 +177,7 @@ function renderRoom(enabled){
 }
 function goRoom(id){activeRoom=id;rememberDiscovery();render();}
 function rotateRoom(step){goRoom(MOODS[(MOODS.indexOf(activeRoom)+step+MOODS.length)%MOODS.length]);}
-$$('[data-layout]').forEach(button=>button.addEventListener('click',()=>{discoveryLayout=button.dataset.layout;selectedMood='';rememberDiscovery();render();}));
+$('#layout-toggle').addEventListener('click',()=>{discoveryLayout=discoveryLayout==='room'?'grid':'room';selectedMood='';rememberDiscovery();render();});
 $('#previous-room').addEventListener('click',()=>rotateRoom(-1));
 $('#next-room').addEventListener('click',()=>rotateRoom(1));
 let deckDragUntil=0,deckDragStart=null,deckWheelAt=0;

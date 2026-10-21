@@ -96,3 +96,7 @@ Replaced the appearance dropdown with a one-click icon button. Legacy System/Lig
 ## Thinner header — October 21, 2026
 
 Reduced masthead padding, wordmark and emblem size, and compacted the view-switch row. Browser measurement confirms a 50px masthead at 689px width; phone styling targets 44px. Preserved login and icon controls. This is a CSS-only presentation change; verified visually without adding implementation-mirroring tests.
+
+## Single-line masthead — October 21, 2026
+
+Moved the discovery layout control into the header ahead of Sign up / Log in and the appearance icon. Replaced the second-row segmented control with one Room view / Grid view toggle. Browser checks confirm a single 44px row at 320px width, no horizontal overflow, and aligned logo/view/account/theme controls. The layout button switches between nine grid groups and the room carousel. Shared browsing/workspace shells were updated together.
