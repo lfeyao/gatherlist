@@ -33,3 +33,7 @@ The browsing header contains only the wordmark, Sign up / Log in and a sun/moon 
 ## Occasion naming
 
 Current consumer-facing titles: Date Night, Garden Party, Something Different, Sunset Toasts, Family Gatherings, For the Foodies, Game Day, Out After Dark, Our Little Secret. Stable internal mood IDs and source-backed venue assignments are unchanged. Occasion labels are editorial, not verified amenity or reservation guarantees.
+
+## Larger gathering selectors
+
+The centred header now shows a framed pair of summary buttons instead of raw text inputs. Guests opens a focused panel with plus/minus, direct entry and quick party-size presets. Budget opens a currency amount, range slider and preset limits. Apply commits both fields through the existing brief pipeline; Escape, close or light dismissal discard drafts. The controls and panels follow the active room and light/dark palette. Keep popovers inside the viewport and header controls on one row on phone widths.

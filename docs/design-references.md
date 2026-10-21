@@ -18,3 +18,10 @@ Revisited two references named in the user's toolkit in the browser:
 - [Monolog](https://bymonolog.com/): off-centre hierarchy, a clear contrast between display type and quiet supporting information, and larger visual proof. Applied that hierarchy to the venue section instead of disconnected form and listing blocks.
 
 The implementation uses the existing sourced venue photography and Supperlune identity. No reference logos, scripts or image assets were copied.
+
+## Guest and budget selectors — October 21, 2026
+
+- [Accor — Input Stepper usage](https://design.accor.com/latest/web/core-components/input-stepper/usage-EGANDPX6): reviewed the official guidance and framed quantity-selection example. Adapted quick plus/minus adjustment with direct numeric entry and presets so larger parties do not require repeated clicks.
+- [Wander — BookingPanel](https://design-system.wander.com/docs/blocks/booking-panel): reviewed the official integrated guest-popover pattern. Adapted a larger summary control that opens a focused panel instead of leaving raw inputs in the navigation.
+
+Original implementation uses native popovers, existing typefaces and the active room palette. No third-party component package, script or reference artwork was installed or copied.

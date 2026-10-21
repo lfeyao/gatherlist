@@ -6,151 +6,151 @@ TAP version 13
 # Subtest: per-person and hourly estimates use guest count and event duration
 ok 1 - per-person and hourly estimates use guest count and event duration
   ---
-  duration_ms: 2.464125
+  duration_ms: 1.687834
   type: 'test'
   ...
 # Subtest: unknown price and capacity stay unknown rather than becoming zero or a fit
 ok 2 - unknown price and capacity stay unknown rather than becoming zero or a fit
   ---
-  duration_ms: 0.262833
+  duration_ms: 0.2465
   type: 'test'
   ...
 # Subtest: minimum spend that fits does not establish that the final quote fits
 ok 3 - minimum spend that fits does not establish that the final quote fits
   ---
-  duration_ms: 21.364375
+  duration_ms: 8.397459
   type: 'test'
   ...
 # Subtest: capacity, minimum guests, city and category can disqualify a supplier
 ok 4 - capacity, minimum guests, city and category can disqualify a supplier
   ---
-  duration_ms: 0.385375
+  duration_ms: 0.279709
   type: 'test'
   ...
 # Subtest: an unstated required feature needs clarification; no availability is invented
 ok 5 - an unstated required feature needs clarification; no availability is invented
   ---
-  duration_ms: 0.661625
+  duration_ms: 1.117042
   type: 'test'
   ...
 # Subtest: ranking prioritizes stated fit, then clarification, then exclusions
 ok 6 - ranking prioritizes stated fit, then clarification, then exclusions
   ---
-  duration_ms: 0.16
+  duration_ms: 0.143
   type: 'test'
   ...
 # Subtest: listing extraction extracts explicit fields and keeps missing values blank
 ok 7 - listing extraction extracts explicit fields and keeps missing values blank
   ---
-  duration_ms: 0.587167
+  duration_ms: 0.628875
   type: 'test'
   ...
 # Subtest: extraction does not promote common negatives or semi-private rooms to positive features
 ok 8 - extraction does not promote common negatives or semi-private rooms to positive features
   ---
-  duration_ms: 0.116459
+  duration_ms: 0.1255
   type: 'test'
   ...
 # Subtest: availability dates must be real calendar dates
 ok 9 - availability dates must be real calendar dates
   ---
-  duration_ms: 0.425708
+  duration_ms: 0.434833
   type: 'test'
   ...
 # Subtest: CSV handles quoted commas, quotes, multiline notes and UTF-8 BOM
 ok 10 - CSV handles quoted commas, quotes, multiline notes and UTF-8 BOM
   ---
-  duration_ms: 0.639333
+  duration_ms: 0.538708
   type: 'test'
   ...
 # Subtest: CSV validation is all-or-nothing and rejects malformed values and links
 ok 11 - CSV validation is all-or-nothing and rejects malformed values and links
   ---
-  duration_ms: 0.193542
+  duration_ms: 0.170417
   type: 'test'
   ...
 # Subtest: CSV cells that could be formulas are escaped
 ok 12 - CSV cells that could be formulas are escaped
   ---
-  duration_ms: 0.072167
+  duration_ms: 0.064417
   type: 'test'
   ...
 # Subtest: CSV exports preserve fictional labels so demo rows cannot silently become real
 ok 13 - CSV exports preserve fictional labels so demo rows cannot silently become real
   ---
-  duration_ms: 0.085792
+  duration_ms: 0.080459
   type: 'test'
   ...
 # Subtest: proposal preserves uncertainty, provenance and fictional labels
 ok 14 - proposal preserves uncertainty, provenance and fictional labels
   ---
-  duration_ms: 0.215708
+  duration_ms: 0.221208
   type: 'test'
   ...
 # Subtest: all supplied fixtures validate and real research makes no price or date claim
 ok 15 - all supplied fixtures validate and real research makes no price or date claim
   ---
-  duration_ms: 0.095125
+  duration_ms: 0.094667
   type: 'test'
   ...
 # Subtest: editorial moods survive CSV round trips without becoming verified features
 ok 16 - editorial moods survive CSV round trips without becoming verified features
   ---
-  duration_ms: 0.138375
+  duration_ms: 0.138833
   type: 'test'
   ...
 # Subtest: nine editorial mood groups each contain real venue leads for the default brief
 ok 17 - nine editorial mood groups each contain real venue leads for the default brief
   ---
-  duration_ms: 6.439625
+  duration_ms: 5.459458
   type: 'test'
   ...
 # Subtest: mood browsing narrows results without duplicating a venue within one mood
 ok 18 - mood browsing narrows results without duplicating a venue within one mood
   ---
-  duration_ms: 0.162333
+  duration_ms: 0.1375
   type: 'test'
   ...
 # Subtest: unassigned user listings remain discoverable instead of receiving invented moods
 ok 19 - unassigned user listings remain discoverable instead of receiving invented moods
   ---
-  duration_ms: 0.311042
+  duration_ms: 0.2855
   type: 'test'
   ...
 # Subtest: all 18 featured places are unique across the entire nine-mood grid
 ok 20 - all 18 featured places are unique across the entire nine-mood grid
   ---
-  duration_ms: 0.136875
+  duration_ms: 0.126625
   type: 'test'
   ...
 # Subtest: legacy multi-mood data and room aliases cannot repeat a place in another category
 ok 21 - legacy multi-mood data and room aliases cannot repeat a place in another category
   ---
-  duration_ms: 0.076
+  duration_ms: 0.067625
   type: 'test'
   ...
 # Subtest: catalog migration preserves edits and saved room IDs and runs only once
 ok 22 - catalog migration preserves edits and saved room IDs and runs only once
   ---
-  duration_ms: 0.983333
+  duration_ms: 0.386083
   type: 'test'
   ...
 # Subtest: system appearance applies before painting and updates the icon until explicitly toggled
 ok 23 - system appearance applies before painting and updates the icon until explicitly toggled
   ---
-  duration_ms: 1.336333
+  duration_ms: 1.024542
   type: 'test'
   ...
 # Subtest: one click toggles, persists, updates accessible state, and overrides later system changes
 ok 24 - one click toggles, persists, updates accessible state, and overrides later system changes
   ---
-  duration_ms: 0.313875
+  duration_ms: 0.358875
   type: 'test'
   ...
 # Subtest: legacy invalid preferences and unavailable storage do not prevent icon toggling
 ok 25 - legacy invalid preferences and unavailable storage do not prevent icon toggling
   ---
-  duration_ms: 0.874708
+  duration_ms: 0.7285
   type: 'test'
   ...
 1..25
@@ -161,4 +161,4 @@ ok 25 - legacy invalid preferences and unavailable storage do not prevent icon t
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 71.404625
+# duration_ms 60.350125

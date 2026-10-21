@@ -1,4 +1,4 @@
-import {starterPresentation} from './discovery.js?v=names-20261021';
+import {starterPresentation} from './discovery.js?v=polished-filters-20261021';
 // Public-source research starter, checked 2026-10-20. These are leads, not endorsements.
 const base = {city:'San Diego',minGuests:null,priceLow:null,priceHigh:null,pricing:'flat',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:false};
 export const researchSuppliers = [

@@ -114,3 +114,11 @@ Removed the deck's wheel handler and throttle state at the user's request. Verti
 ## Consumer occasion names — October 21, 2026
 
 Applied the proposed occasion names with the user's selected refinements: Date Night; Garden Party; Something Different; Sunset Toasts; Family Gatherings; For the Foodies; Game Day; Out After Dark; Our Little Secret. Kept all underlying primary-mood IDs, venue assignments, browser records and shortlist IDs unchanged. These are editorial discovery labels; no new venue amenities, sports-screen availability, prices or booking claims were added.
+
+## Polished guest/budget controls and login audit — October 21, 2026
+
+Replaced tiny exposed header inputs with larger framed summary buttons and native popover selectors, informed by official Accor and Wander design-system references. Guests supports plus/minus, exact entry and 2/12/24/40/60 presets; Budget supports exact currency entry, a range slider and $1,000/$2,500/$5,000 presets. Changes remain drafts until Apply. Closing/Escape leaves saved settings unchanged. Large values use compact header summaries with full accessible labels. Preserved the brief schema, primary moods, quotes, local storage and portable exports.
+
+Browser checks: guest increment 24→25 then Escape retained 24; selecting/applying 40 updated matches; cancelled budget preset retained $1,800; a $5,000 preset plus slider ArrowLeft applied $4,900. Tested the one-guest decrement bound and Light/Dark styles. Restored 24 guests/$1,800 after test changes. At 320px the body stayed 320px, selectors remained one row, and both popovers fit between x=16 and x=304 without internal overflow. Keyboard opening and dismissal work. Temporary QA wrapper removed.
+
+Login audit: the real hosted button navigated to OpenAI's Welcome back screen, which offers authentication and a Sign up link. The configured return target is /workspace.html. Completing credentials and the post-authentication round trip were not verified. Sites access remains owner-private (only the owner allowed, zero external viewers/groups); this is not a public customer registration system. Saved listings remain browser-local rather than account-synced. No passwords were requested or entered, and sharing permissions were not changed.

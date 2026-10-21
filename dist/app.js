@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=names-20261021';
-import {sampleSuppliers, demoBrief} from './sample.js?v=names-20261021';
-import {researchSuppliers} from './research.js?v=names-20261021';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=names-20261021';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=polished-filters-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=polished-filters-20261021';
+import {researchSuppliers} from './research.js?v=polished-filters-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=polished-filters-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -132,6 +132,8 @@ function render() {
   $$('[data-status]').forEach(button => {button.classList.toggle('selected',button.dataset.status===status);button.setAttribute('aria-pressed',String(button.dataset.status===status));});
   $('#budget-basis').textContent=state.brief.category==='venue'?'per venue':'per vendor';
   $('#quick-guests').value=state.brief.guests; $('#quick-budget').value=state.brief.budget;
+  $('#guest-summary').textContent=new Intl.NumberFormat('en-US',{notation:state.brief.guests>=1000?'compact':'standard',maximumFractionDigits:1}).format(state.brief.guests);$('#budget-summary').textContent=state.brief.budget>=10000?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:1}).format(state.brief.budget):money(state.brief.budget);
+  $('#guests-trigger').setAttribute('aria-label',`Guests: ${state.brief.guests}`);$('#budget-trigger').setAttribute('aria-label',`Budget: ${money(state.brief.budget)} ${state.brief.category==='venue'?'per venue':'per vendor'}`);
   $$('[data-guests]').forEach(button=>{const on=Number(button.dataset.guests)===Number(state.brief.guests);button.classList.toggle('selected',on);button.setAttribute('aria-pressed',String(on));});
   $('#browse-context').textContent=`${state.brief.category==='venue'?'Spaces':'Options'} for ${state.brief.guests} people in ${state.brief.city}`;
   $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Venues':'Find your kind of together.';
@@ -195,16 +197,38 @@ $$('[data-view]').forEach(button => button.addEventListener('click', () => {view
 $('#manage-toggle').addEventListener('click',()=>{const panel=$('#manage-panel');panel.hidden=!panel.hidden;$('#manage-toggle').setAttribute('aria-expanded',String(!panel.hidden));});
 $('#more-filters').addEventListener('click',()=>{const details=$('#brief-disclosure');details.open=!details.open;$('#more-filters').setAttribute('aria-expanded',String(details.open));});
 $('#brief-disclosure').addEventListener('toggle',()=>$('#more-filters').setAttribute('aria-expanded',String($('#brief-disclosure').open)));
-let headerBriefTimer;
+function updateFilterDraft(){
+  const guests=Number($('#quick-guests').value),budget=Number($('#quick-budget').value);
+  $$('[data-guest-choice]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.guestChoice)===guests)));
+  $$('[data-budget-choice]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.budgetChoice)===budget)));
+  $('[data-guest-step="-1"]').disabled=guests<=1;$('[data-guest-step="1"]').disabled=guests>=10000;
+  const slider=$('#budget-range');slider.max=Math.max(10000,Math.ceil((budget||10000)/1000)*1000);slider.value=budget||100;$('#budget-range-max').textContent=money(Number(slider.max));
+}
+function positionFilter(panel){
+  const trigger=$('#'+panel.id.replace('-popover','-trigger')),rect=trigger.getBoundingClientRect(),width=panel.getBoundingClientRect().width;
+  panel.style.left=Math.max(16,Math.min(innerWidth-width-16,rect.left+rect.width/2-width/2))+'px';
+  panel.style.top=Math.max(8,Math.min(rect.bottom+12,innerHeight-panel.getBoundingClientRect().height-12))+'px';
+}
+$$('.filter-popover').forEach(panel=>{
+  panel.addEventListener('toggle',event=>{
+    const trigger=$('#'+panel.id.replace('-popover','-trigger'));trigger.setAttribute('aria-expanded',String(event.newState==='open'));
+    if(event.newState==='open'){
+      $('#quick-guests').value=state.brief.guests;$('#quick-budget').value=state.brief.budget;updateFilterDraft();positionFilter(panel);panel.querySelector('h2').focus({preventScroll:true});
+    }
+  });
+});
+window.addEventListener('resize',()=>{$$('.filter-popover:popover-open').forEach(positionFilter);});
+$$('[data-guest-step]').forEach(button=>button.addEventListener('click',()=>{$('#quick-guests').value=Math.max(1,Math.min(10000,(Number($('#quick-guests').value)||1)+Number(button.dataset.guestStep)));updateFilterDraft();}));
+$$('[data-guest-choice]').forEach(button=>button.addEventListener('click',()=>{$('#quick-guests').value=button.dataset.guestChoice;updateFilterDraft();}));
+$$('[data-budget-choice]').forEach(button=>button.addEventListener('click',()=>{$('#quick-budget').value=button.dataset.budgetChoice;updateFilterDraft();}));
+$('#quick-guests').addEventListener('input',updateFilterDraft);$('#quick-budget').addEventListener('input',updateFilterDraft);
+$('#budget-range').addEventListener('input',event=>{$('#quick-budget').value=event.target.value;updateFilterDraft();});
 $('#quick-brief').addEventListener('submit',event=>{
-  clearTimeout(headerBriefTimer);
   event.preventDefault();if(!event.currentTarget.reportValidity())return;
   state.brief.guests=Number($('#quick-guests').value);state.brief.budget=Number($('#quick-budget').value);
-  populateBrief();persist();render();
+  const panel=$('.filter-popover:popover-open'),trigger=panel?$('#'+panel.id.replace('-popover','-trigger')):null;
+  if(panel)panel.hidePopover();populateBrief();persist();render();trigger?.focus({preventScroll:true});
 });
-$('#quick-brief').addEventListener('input',event=>{clearTimeout(headerBriefTimer);const form=event.currentTarget;headerBriefTimer=setTimeout(()=>{if(form.checkValidity())form.requestSubmit();},300);});
-$('#quick-brief').addEventListener('change',event=>{if(event.currentTarget.checkValidity())event.currentTarget.requestSubmit();});
-$$('[data-guests]').forEach(button=>button.addEventListener('click',()=>{state.brief.guests=Number(button.dataset.guests);populateBrief();persist();render();}));
 $('#listings').addEventListener('click',event=>{const button=event.target.closest('[data-mood]');if(!button || button.dataset.mood==='other')return;selectedMood=selectedMood===button.dataset.mood?'':button.dataset.mood;render();$(`[data-mood="${button.dataset.mood}"]`)?.focus({preventScroll:true});});
 $('#clear-mood').addEventListener('click',()=>{selectedMood='';render();$('#browse-title').scrollIntoView({block:'nearest'});});
 $$('[data-status]').forEach(button => button.addEventListener('click', () => {status=button.dataset.status;render();}));
