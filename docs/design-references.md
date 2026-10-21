@@ -9,3 +9,12 @@ The user supplied `/Users/daiyu/Downloads/design-toolkit.md`. Reviewed its art-d
 Fonts: [Cormorant Garamond](https://github.com/google/fonts/tree/main/ofl/cormorantgaramond) and [Instrument Sans](https://github.com/google/fonts/tree/main/ofl/instrumentsans), each bundled with its SIL Open Font License.
 
 The prototype uses the working name Supperlune. An exact-name web search returned no results in this session; this is not a trademark, domain or legal clearance. A full professional clearance remains necessary before investing in the name.
+
+## Mood deck and lower-section refinement
+
+Revisited two references named in the user's toolkit in the browser:
+
+- [House of Honey](https://www.houseofhoney.com/): large interior photography, layered type and a deliberate transition from imagery to a continuous editorial ground. Adapted the layering to an original curved photo deck and the transition into one solid gathering section.
+- [Monolog](https://bymonolog.com/): off-centre hierarchy, a clear contrast between display type and quiet supporting information, and larger visual proof. Applied that hierarchy to the venue section instead of disconnected form and listing blocks.
+
+The implementation uses the existing sourced venue photography and Supperlune identity. No reference logos, scripts or image assets were copied.

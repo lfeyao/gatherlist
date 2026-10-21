@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=room-20261021';
-import {sampleSuppliers, demoBrief} from './sample.js?v=room-20261021';
-import {researchSuppliers} from './research.js?v=room-20261021';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=room-20261021';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=deck-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=deck-20261021';
+import {researchSuppliers} from './research.js?v=deck-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=deck-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -134,7 +134,7 @@ function render() {
   $('#quick-guests').value=state.brief.guests; $('#quick-budget').value=state.brief.budget;
   $$('[data-guests]').forEach(button=>{const on=Number(button.dataset.guests)===Number(state.brief.guests);button.classList.toggle('selected',on);button.setAttribute('aria-pressed',String(on));});
   $('#browse-context').textContent=`${state.brief.category==='venue'?'Spaces':'Options'} for ${state.brief.guests} people in ${state.brief.city}`;
-  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Places for '+moods.find(m=>m.id===activeRoom).title.toLowerCase()+'.':'Find your kind of together.';
+  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Places to linger.':'Find your kind of together.';
   $('#clear-mood').hidden=roomMode||!selectedMood;
   renderRoom(roomMode); $('#mode-label').hidden=state.mode!=='demo';
   $('#workspace-banner').classList.toggle('notice-warning',!!storageWarning);
@@ -155,15 +155,16 @@ function renderRoom(enabled){
   if(!enabled)return;
   const mood=moods.find(m=>m.id===activeRoom),index=MOODS.indexOf(activeRoom);
   $('#room-copy').innerHTML=`<span class="room-number">The ${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')} edit</span><h1>${escape(mood.title)}</h1><p>${escape(mood.line)}</p>`;
+  $('#collection-mood').textContent=mood.title+' / '+state.brief.city;
+  $('#browse-context').textContent=mood.title+' · '+state.brief.guests+' guests in '+state.brief.city;
   $('#room-position').textContent=`${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')}`;
   $('#room-credit').textContent=`Photo: ${mood.photo.credit} ↗`;
   $('#room-credit').href=mood.photo.source;
   const firstRail=!$('#room-rail').children.length;
   if(firstRail){
-    $('#room-rail').innerHTML=moods.map(m=>`<button data-room="${m.id}" aria-label="Enter ${escape(m.title)}" aria-pressed="false">${photoMarkup({...m.photo,url:roomPhotoUrl(m.photo,300)},'',false)}<span>${escape(m.title)}</span></button>`).join('');
+    $('#room-rail').innerHTML=moods.map((m,i)=>`<button data-room="${m.id}" aria-label="Enter ${escape(m.title)}" aria-pressed="false">${photoMarkup({...m.photo,url:roomPhotoUrl(m.photo,300)},'',false)}<span class="deck-caption"><small>${String(i+1).padStart(2,'0')}</small><span>${escape(m.title)}</span><b aria-hidden="true">↗</b></span></button>`).join('');
   }
-  $$('[data-room]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.room===activeRoom)));
-  if(firstRail)requestAnimationFrame(()=>centerRoom(activeRoom,'instant'));
+  $$('[data-room]').forEach((button,i)=>{button.setAttribute('aria-pressed',String(button.dataset.room===activeRoom));const distance=(i-index+MOODS.length+4)%MOODS.length-4;button.style.setProperty('--deck-offset',distance);button.style.setProperty('--deck-turn',distance*5+'deg');button.style.setProperty('--deck-drop',Math.abs(distance)*12+'px');button.style.setProperty('--deck-opacity',Math.abs(distance)>2?'0':'1');button.tabIndex=distance===0?0:-1;});
   if(shownRoom!==activeRoom){
     shownRoom=activeRoom;
     const image=new Image();image.referrerPolicy='no-referrer';
@@ -173,22 +174,21 @@ function renderRoom(enabled){
     for(const neighbor of [moods[(index+1)%moods.length],moods[(index+moods.length-1)%moods.length]]){const preload=new Image();preload.referrerPolicy='no-referrer';preload.src=roomPhotoUrl(neighbor.photo,1500);}
   }
 }
-function centerRoom(id,behavior){
-  const rail=$('#room-rail'),button=$(`[data-room="${id}"]`);if(button)rail.scrollTo({left:button.offsetLeft-rail.offsetLeft-(rail.clientWidth-button.clientWidth)/2,behavior});
-}
-function goRoom(id){
-  activeRoom=id;rememberDiscovery();render();
-  centerRoom(id,matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth');
-}
+function goRoom(id){activeRoom=id;rememberDiscovery();render();}
 function rotateRoom(step){goRoom(MOODS[(MOODS.indexOf(activeRoom)+step+MOODS.length)%MOODS.length]);}
 $$('[data-layout]').forEach(button=>button.addEventListener('click',()=>{discoveryLayout=button.dataset.layout;selectedMood='';rememberDiscovery();render();}));
 $('#previous-room').addEventListener('click',()=>rotateRoom(-1));
 $('#next-room').addEventListener('click',()=>rotateRoom(1));
-$('#room-rail').addEventListener('click',event=>{const button=event.target.closest('[data-room]');if(button)goRoom(button.dataset.room);});
+let deckDragUntil=0,deckDragStart=null,deckWheelAt=0;
+$('#room-rail').addEventListener('pointerdown',event=>{if(event.pointerType==='mouse')deckDragStart={x:event.clientX,y:event.clientY};});
+window.addEventListener('pointerup',event=>{if(!deckDragStart)return;const dx=event.clientX-deckDragStart.x,dy=event.clientY-deckDragStart.y;deckDragStart=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){deckDragUntil=Date.now()+350;rotateRoom(dx<0?1:-1);}});
+window.addEventListener('pointercancel',()=>deckDragStart=null);
+$('#room-rail').addEventListener('wheel',event=>{if(event.ctrlKey||event.metaKey)return;const delta=Math.abs(event.deltaX)>Math.abs(event.deltaY)?event.deltaX:event.deltaY;if(Math.abs(delta)<4)return;event.preventDefault();if(Date.now()-deckWheelAt<420)return;deckWheelAt=Date.now();rotateRoom(delta>0?1:-1);},{passive:false});
+$('#room-rail').addEventListener('click',event=>{const button=event.target.closest('[data-room]');if(button&&Date.now()>deckDragUntil)goRoom(button.dataset.room);});
 $('#room-experience').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();rotateRoom(event.key==='ArrowRight'?1:-1);}if(event.key==='Home'||event.key==='End'){event.preventDefault();goRoom(event.key==='Home'?MOODS[0]:MOODS.at(-1));}});
 let swipeStart=null;
 $('#room-experience').addEventListener('touchstart',event=>{const t=event.touches[0];swipeStart={x:t.clientX,y:t.clientY};},{passive:true});
-$('#room-experience').addEventListener('touchend',event=>{if(!swipeStart||event.target.closest('#room-rail'))return;const t=event.changedTouches[0],dx=t.clientX-swipeStart.x,dy=t.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5)rotateRoom(dx<0?1:-1);},{passive:true});
+$('#room-experience').addEventListener('touchend',event=>{if(!swipeStart)return;const t=event.changedTouches[0],dx=t.clientX-swipeStart.x,dy=t.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5)rotateRoom(dx<0?1:-1);},{passive:true});
 
 render();
 $$('[data-view]').forEach(button => button.addEventListener('click', () => {view=button.dataset.view;selectedMood='';status='potential';search='';$('#search').value='';render();}));

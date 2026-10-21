@@ -15,3 +15,9 @@ Reference notes are in docs/design-references.md. The user's design toolkit is v
 Room view is the default discovery setting. Nine equal-size photographic mood selectors rotate the active atmosphere, with previous/next controls, arrow keys, Home/End, and horizontal touch swipes over the main scene. Each mood sets a full-window authentic venue backdrop, matching page palette, heading, credit and venue suggestions. Background images crossfade after loading; reduced motion removes transitions. The carousel is manual so the scene stays where the visitor leaves it. The view and mood persist independently of research and appearance preferences.
 
 Mood grid remains an alternate setting with nine equal-size image cards, three columns on desktop. The previous staggered heights and offsets are removed. Both views use the same primary mood assignments and unique venue catalog. In Room view the carousel shows every editorial mood, including moods without matches for a revised brief; the venue section honestly reports missing matches.
+
+## Curved deck and continuous collection section
+
+The room selector is now an endless curved deck of equally sized photographic prints. The selected card stays centred; neighbouring moods wrap around both ends. Pointer dragging, mouse-wheel movement over the deck, touch swipes, buttons and keyboard controls rotate moods. The page scrolls normally outside the deck. Reduced-motion preferences remove the animated card movement.
+
+One full-width collection ground begins beneath the room scene and contains planning controls, venues and footer. No room backdrop shows through gaps between these sections. Planning controls are quiet and compact; venue photography occupies large consistent frames, with names, capacity and quote status beneath. The grid remains an equal-size, nine-mood alternate view.
