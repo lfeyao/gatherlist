@@ -17,7 +17,8 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 
 - Room view: rotate nine moods with arrows, keyboard or touch swipes; room photography, site colours and venue suggestions change together. Switch to the equal-size Mood grid at any time. Your view and mood are remembered.
 
-- Choose System, Light or Dark from the top-right Appearance menu. The choice persists on this browser and stays separate from venue data.
+- Toggle Light/Dark with the header sun/moon icon. The initial appearance follows the system until you choose; the choice persists separately from venue data.
+- Sign up / Log in uses hosted ChatGPT authentication and returns to a separate workspace for shortlists and listing tools. The existing owner-private audience remains unchanged; browser-local records do not become cloud-synced accounts.
 
 - Browse nine photographic mood groups, three across on desktop, with two different venues directly beneath each mood; no venue repeats across categories.
 - Start with guest count, browse the mood, then compare estimated cost or an honest quote-needed label.

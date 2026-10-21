@@ -25,3 +25,7 @@ One full-width collection ground begins beneath the room scene and contains plan
 ## Reduced interface copy
 
 Removed the room eyebrow, edition label, mood subtitle, gesture slogan, supporting tagline, deck numbers, gathering introduction and repeated curation sentence. The room view leads with the mood name and photography; navigation, photo credits, guest/budget inputs and venue facts remain. Reduced the reserved heading height to close the gaps left by removed copy.
+
+## Minimal header and workspace
+
+The browsing header contains only the wordmark, Sign up / Log in and a sun/moon icon. The icon toggles resolved Light/Dark directly and has an accessible action label. Legacy system/default preferences still work until explicitly toggled. The separate workspace.html page holds Discover, Shortlist and Manage listings; keep its shared shell synchronized with index.html when editing common markup. Hosted ChatGPT sign-in returns to that workspace through the platform-owned sign-in route. The Site's owner-private access policy remains the authentication boundary; no local-storage sign-in flag or fake password form is used.

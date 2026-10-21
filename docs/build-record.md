@@ -86,3 +86,9 @@ Validation: 25 automated checks pass. Browser checks confirm wheel rotation from
 ## Copy reduction — October 21, 2026
 
 Removed the extra room labels and taglines at the user's request, including San Diego / Step inside, the numbered edit label and the atmosphere/gesture slogan. Also removed redundant mood description, card numbering, gathering introduction, brand tagline and curation sentence. Kept working controls, sources and factual venue details. Adjusted spacing around the shorter room heading. Browser inspection confirmed the room heading now contains only the active mood name.
+
+## Header and workspace — October 21, 2026
+
+At the user's request, removed Discover/Shortlist/Manage listings from the browsing header and moved those tools to workspace.html. The top-right Sign up / Log in anchor uses the documented platform-owned /signin-with-chatgpt route and returns to /workspace.html. The workspace retains existing local research and shortlist state on the same origin. The existing owner-only Site policy is unchanged. No separate password authentication or cross-device record sync is claimed; hosted authentication routes are not served by the local static preview.
+
+Replaced the appearance dropdown with a one-click icon button. Legacy System/Light/Dark preferences load, the default follows system changes until explicitly toggled, and clicks persist the resolved opposite theme. Updated three behavioral tests for icon state, accessibility labels, system tracking, persistence and unavailable storage. All 25 tests pass. Browser verification confirmed no header dropdown, no browsing navigation in the header, Light/Dark toggling, a 320px phone body without overflow, the correct sign-in target and working workspace management tools.

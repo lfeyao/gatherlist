@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=quiet-20261021';
-import {sampleSuppliers, demoBrief} from './sample.js?v=quiet-20261021';
-import {researchSuppliers} from './research.js?v=quiet-20261021';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=quiet-20261021';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=header-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=header-20261021';
+import {researchSuppliers} from './research.js?v=header-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=header-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -39,7 +39,7 @@ let discoveryLayout='room', activeRoom='cozy', roomLayer=0, shownRoom='';
 try {const preference=JSON.parse(localStorage.getItem('supperlune-discovery-v1'));if(['room','grid'].includes(preference?.layout))discoveryLayout=preference.layout;if(MOODS.includes(preference?.mood))activeRoom=preference.mood;} catch {}
 function rememberDiscovery(){try{localStorage.setItem('supperlune-discovery-v1',JSON.stringify({layout:discoveryLayout,mood:activeRoom}));}catch{}}
 
-let view = 'all', status = 'potential', search = '', pendingImport = [], toastTimer, undoAction, editingFictional = false;
+let view = document.body.dataset.workspace==='true'?'shortlist':'all', status = 'potential', search = '', pendingImport = [], toastTimer, undoAction, editingFictional = false;
 const suppliers = () => state.mode === 'demo' ? sampleSuppliers : state.personal;
 const savedIds = () => state.mode === 'demo' ? state.demoSaved : state.saved;
 const localDate = () => {const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
