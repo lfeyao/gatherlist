@@ -196,11 +196,15 @@ $$('[data-view]').forEach(button => button.addEventListener('click', () => {view
 $('#manage-toggle').addEventListener('click',()=>{const panel=$('#manage-panel');panel.hidden=!panel.hidden;$('#manage-toggle').setAttribute('aria-expanded',String(!panel.hidden));});
 $('#more-filters').addEventListener('click',()=>{const details=$('#brief-disclosure');details.open=!details.open;$('#more-filters').setAttribute('aria-expanded',String(details.open));});
 $('#brief-disclosure').addEventListener('toggle',()=>$('#more-filters').setAttribute('aria-expanded',String($('#brief-disclosure').open)));
+let headerBriefTimer;
 $('#quick-brief').addEventListener('submit',event=>{
+  clearTimeout(headerBriefTimer);
   event.preventDefault();if(!event.currentTarget.reportValidity())return;
   state.brief.guests=Number($('#quick-guests').value);state.brief.budget=Number($('#quick-budget').value);
-  populateBrief();persist();render();showToast('Places updated for your people and budget.');
+  populateBrief();persist();render();
 });
+$('#quick-brief').addEventListener('input',event=>{clearTimeout(headerBriefTimer);const form=event.currentTarget;headerBriefTimer=setTimeout(()=>{if(form.checkValidity())form.requestSubmit();},300);});
+$('#quick-brief').addEventListener('change',event=>{if(event.currentTarget.checkValidity())event.currentTarget.requestSubmit();});
 $$('[data-guests]').forEach(button=>button.addEventListener('click',()=>{state.brief.guests=Number(button.dataset.guests);populateBrief();persist();render();}));
 $('#listings').addEventListener('click',event=>{const button=event.target.closest('[data-mood]');if(!button || button.dataset.mood==='other')return;selectedMood=selectedMood===button.dataset.mood?'':button.dataset.mood;render();$(`[data-mood="${button.dataset.mood}"]`)?.focus({preventScroll:true});});
 $('#clear-mood').addEventListener('click',()=>{selectedMood='';render();$('#browse-title').scrollIntoView({block:'nearest'});});

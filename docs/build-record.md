@@ -100,3 +100,9 @@ Reduced masthead padding, wordmark and emblem size, and compacted the view-switc
 ## Single-line masthead — October 21, 2026
 
 Moved the discovery layout control into the header ahead of Sign up / Log in and the appearance icon. Replaced the second-row segmented control with one Room view / Grid view toggle. Browser checks confirm a single 44px row at 320px width, no horizontal overflow, and aligned logo/view/account/theme controls. The layout button switches between nine grid groups and the room carousel. Shared browsing/workspace shells were updated together.
+
+## Centred header filters — October 21, 2026
+
+Moved guest count and budget from the lower planning strip into the middle of the masthead on both browsing and workspace pages. The compact fields apply after a short typing pause, on change, or on Enter. Removed duplicate lower controls and their preset/update-button presentation. The logo remains left; view/account/appearance controls remain right. At narrow phone widths those right-side actions use accessible icons.
+
+Browser checks confirm a single 44px header at 320px width without overflow, automatic guest filtering from 40 back to 24, and an Enter-submitted budget change to $2,000 followed by restoration to $1,800. Existing browser data and view settings are preserved. Temporary QA wrapper removed before packaging.
