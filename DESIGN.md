@@ -11,3 +11,5 @@ Use Instrument Sans, restrained ink typography, an almost-white canvas and a war
 Desktop uses three columns, tablet two, phone one. Images retain context when cropped. Self-host the font with its OFL license; honor reduced motion, provide meaningful image descriptions, keyboard focus and native dialogs. Preserve local storage and portable exports. User-entered or fictional listings without a verified photo receive a clear placeholder.
 
 The supplied design toolkit informed visual hierarchy and rendered critique. The user’s specific mood-and-venue hierarchy governs the implementation. Verified capacities, estimates and uncertainty must remain legible; decorative scores and fabricated prices are inappropriate.
+
+Appearance offers System, Light and Dark. Apply the saved choice before painting; System follows live device changes. Dark mode uses charcoal green surfaces, pale ink and warm accents while leaving venue photography intact. Forms, native controls, dialogs, shortlist cards, notices and focus states share the active palette. The mobile header puts Appearance beside the site title and navigation beneath.

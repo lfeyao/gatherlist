@@ -15,6 +15,8 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 
 ## What works
 
+- Choose System, Light or Dark from the top-right Appearance menu. The choice persists on this browser and stays separate from venue data.
+
 - Browse nine photographic mood groups, three across on desktop, with two different venues directly beneath each mood; no venue repeats across categories.
 - Start with guest count, browse the mood, then compare estimated cost or an honest quote-needed label.
 - Open venue details, save a unique shortlist, or refine city, category, hours, budget, date and required features.
