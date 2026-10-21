@@ -1,6 +1,6 @@
-# San Diego small gatherings
+# Supperlune
 
-A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. The permanent name and logo are undecided; the repository and URL retain the original Gatherlist identifier.
+A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. Supperlune is the current working identity, with a crescent-and-table emblem. Trademark clearance has not been performed; the repository and URL retain the original Gatherlist identifier.
 
 ## Try it
 
@@ -11,7 +11,7 @@ npm test
 npm run preview
 ```
 
-Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package installation, API key or build step is needed. Instrument Sans is self-hosted with its OFL license in `dist/fonts/`.
+Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package installation, API key or build step is needed. Instrument Sans and Cormorant Garamond are self-hosted with their OFL licenses in `dist/fonts/`.
 
 ## What works
 

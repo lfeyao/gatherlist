@@ -60,3 +60,11 @@ Additional browser checks: saving a new Bread & Salt lead produced a single shor
 ## Dark appearance
 
 Added a top-right Appearance menu with System, Light and Dark. The default follows the device; an explicit choice persists in a separate browser key. A small head script applies the palette before the stylesheet paints, follows system changes only in System mode, and tolerates unavailable storage. Dark styling covers forms, dialogs, selected guest counts, source-management tools and shortlist surfaces. Venue photos remain unchanged. Three behavioral tests cover startup, system changes, persistence, invalid preferences and unavailable storage; all 25 project tests pass. Browser verification confirmed that Dark survives reload, preserves all 18 venue cards and renders advanced forms with dark controls.
+
+## Supperlune identity and atmospheric redesign — October 21, 2026
+
+The user requested a less stiff, sexy and moody direction and a better working name/logo. Introduced Supperlune with a custom SVG crescent-and-table emblem, Cormorant Garamond display typography, warm ink/cream/brass palettes, an authentic speakeasy photo hero and staggered editorial mood compositions. The name is exploratory; no trademark clearance is claimed. Design references and photo/font provenance are documented separately.
+
+Preserved all nine primary moods, the three-column desktop grouping and 18 distinct venue businesses. Matching, source notes, saved lists, unknown prices, browser data keys and import/export behavior remain intact. Source tools and detailed filters retain their existing controls. Light/Dark/System preferences remain separate from research data.
+
+Verification: 25 automated tests pass. Browser checks confirm nine groups, 18 cards/unique IDs and three desktop columns at 1440px; venue details, save/shortlist/remove, and Light/Dark switching work. The 320px phone frame initially exposed layout overflow; adjusted header, guest controls and full-width hero margins. Final body width is 320px, quick form 288px, advanced form has no internal overflow. A 768px frame uses two mood columns. These are browser simulations, not physical device tests. Temporary QA fixtures/bookmarks were removed and the initial 24 guests/$1,800 brief retained. No software or system configuration was installed or changed.

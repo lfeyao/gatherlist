@@ -1,15 +1,11 @@
-# Design direction
+# Supperlune — art direction
 
-The customer starts with people, then mood, then cost. Discovery is visual, with nine mood cards in a three-by-three desktop grid and venue suggestions directly under every mood. Each mood has an actual venue photo, a short title and a source credit. Two unique venues preview under a mood; selecting it reveals the complete group without reassigning venues from other moods. The shortlist contains each saved venue once.
+Working identity: Supperlune, places for good company. The name is exploratory and has not received trademark clearance. A custom crescent-and-table SVG emblem accompanies a restrained lowercase Cormorant wordmark. Keep technical repository and hosting identifiers stable.
 
-The nine moods are Candlelit dinners, Courtyards & gardens, Art & design, Ocean views, Old-world charm, Chef-led dining, Beer & lawn games, Rooftop nights, and Hidden lounges. Every venue has exactly one primary mood. A room inside an already-featured venue cannot fill a second category. The default grid contains 18 distinct venues, two per category. Editorial moods remain separate from verified features.
+The visual world is an intimate hospitality editorial: warm brown-black, cream, brass, expressive high-contrast serif headlines, quiet Instrument Sans labels and cinematic authentic venue photography. The hero uses a bar interior from Realm of the 52 Remedies, with a direct source credit. No generated interior is presented as a real venue.
 
-Guest presets and a custom guest count lead the controls. Budget follows; advanced features, source review, CSV import and data-management tools sit behind secondary controls. Venue cards show a real thumbnail, capacity and estimated cost or “Quote needed.” Full notes, matching reasons and source links open on demand.
+Customer order remains people, mood, cost. A compact planning strip leads into nine mood collections, three across on desktop, two at tablet widths, one on a narrow phone. Middle columns sit lower to give the collection a less mechanical rhythm. Each image leads into its own two venue suggestions, with 18 distinct businesses overall. Primary-mood membership, deduplication and uncertainty remain unchanged. Unknown prices say Quote needed.
 
-Use Instrument Sans, restrained ink typography, an almost-white canvas and a warm red action color. Photos carry the personality. The header says San Diego / Small gatherings while a permanent name and logo remain undecided. Do not restore a placeholder lettermark or assert a chosen brand.
+Source review, CSV imports, detailed filters and research administration stay behind secondary controls. Preserve existing local data and saved IDs. System, Light and Dark remain available, with remembered preferences; the cinematic hero stays dark in both modes. Native dialogs, forms, focus visibility and reduced-motion support are part of the same design system.
 
-Desktop uses three columns, tablet two, phone one. Images retain context when cropped. Self-host the font with its OFL license; honor reduced motion, provide meaningful image descriptions, keyboard focus and native dialogs. Preserve local storage and portable exports. User-entered or fictional listings without a verified photo receive a clear placeholder.
-
-The supplied design toolkit informed visual hierarchy and rendered critique. The user’s specific mood-and-venue hierarchy governs the implementation. Verified capacities, estimates and uncertainty must remain legible; decorative scores and fabricated prices are inappropriate.
-
-Appearance offers System, Light and Dark. Apply the saved choice before painting; System follows live device changes. Dark mode uses charcoal green surfaces, pale ink and warm accents while leaving venue photography intact. Forms, native controls, dialogs, shortlist cards, notices and focus states share the active palette. The mobile header puts Appearance beside the site title and navigation beneath.
+Reference notes are in docs/design-references.md. The user's design toolkit is visual reference material; its embedded scripts were not executed. Website concepts are adapted to this product without copying a reference site's branding or assets.

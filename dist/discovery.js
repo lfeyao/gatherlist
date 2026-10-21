@@ -81,7 +81,7 @@ Object.assign(photos, {
     "source": "https://altitudeskylounge.com/sandiego/"
   },
   "realm": {
-    "url": "https://images.squarespace-cdn.com/content/v1/608b4cd455f6d26840c8ae48/01941046-7f5b-4e20-8745-90f0dc64286b/DSCF5780.jpg",
+    "url": "https://images.squarespace-cdn.com/content/v1/608b4cd455f6d26840c8ae48/1619750232385-V8NWU80TMQEJNGMJRILR/52%2B-%2BInteriors%2B%282%29.jpg?format=1500w",
     "alt": "Interior of Realm of the 52 Remedies",
     "credit": "Realm of the 52 Remedies \u00b7 General venue photo",
     "source": "https://www.52remedies.com/"

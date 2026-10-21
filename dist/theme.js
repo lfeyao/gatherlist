@@ -8,7 +8,7 @@
   function apply() {
     const theme = choice === 'system' ? (system.matches ? 'dark' : 'light') : choice;
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#151a17' : '#faf9f6');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#171310' : '#f3eee5');
     const picker = document.getElementById('appearance');
     if (picker) picker.value = choice;
     document.querySelector('#appearance-icon use')?.setAttribute('href', `icons.svg#${choice === 'system' ? 'device' : theme === 'dark' ? 'moon' : 'sun'}`);

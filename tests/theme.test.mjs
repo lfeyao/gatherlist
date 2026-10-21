@@ -13,14 +13,14 @@ function browser({saved=null,dark=false,blocked=false}={}) {
 }
 test('system appearance is applied before the page is ready and tracks system changes',()=>{
   const page=browser({dark:true});assert.equal(page.document.documentElement.dataset.theme,'dark');
-  assert.equal(page.meta.content,'#151a17');page.ready();assert.equal(page.choice,'system');
+  assert.equal(page.meta.content,'#171310');page.ready();assert.equal(page.choice,'system');
   page.systemChange(false);assert.equal(page.document.documentElement.dataset.theme,'light');
 });
 test('an explicit saved preference overrides the system and picker changes are persisted',()=>{
   const page=browser({saved:'dark',dark:false});page.ready();assert.equal(page.choice,'dark');
   assert.equal(page.document.documentElement.dataset.theme,'dark');page.systemChange(false);
   assert.equal(page.document.documentElement.dataset.theme,'dark');page.select('light');
-  assert.equal(page.stored.get('gathering-appearance-v1'),'light');assert.equal(page.meta.content,'#faf9f6');
+  assert.equal(page.stored.get('gathering-appearance-v1'),'light');assert.equal(page.meta.content,'#f3eee5');
   assert.equal(page.icon.href,'icons.svg#sun');page.select('system');page.systemChange(true);
   assert.equal(page.document.documentElement.dataset.theme,'dark');assert.equal(page.icon.href,'icons.svg#device');
 });
