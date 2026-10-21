@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js';
-import {sampleSuppliers, demoBrief} from './sample.js';
-import {researchSuppliers} from './research.js';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=room-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=room-20261021';
+import {researchSuppliers} from './research.js?v=room-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=room-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -35,6 +35,10 @@ if(!state.nineMoodsAdded){
 }
 migrateDistinctCatalog(state,researchSuppliers);
 let selectedMood = '';
+let discoveryLayout='room', activeRoom='cozy', roomLayer=0, shownRoom='';
+try {const preference=JSON.parse(localStorage.getItem('supperlune-discovery-v1'));if(['room','grid'].includes(preference?.layout))discoveryLayout=preference.layout;if(MOODS.includes(preference?.mood))activeRoom=preference.mood;} catch {}
+function rememberDiscovery(){try{localStorage.setItem('supperlune-discovery-v1',JSON.stringify({layout:discoveryLayout,mood:activeRoom}));}catch{}}
+
 let view = 'all', status = 'potential', search = '', pendingImport = [], toastTimer, undoAction, editingFictional = false;
 const suppliers = () => state.mode === 'demo' ? sampleSuppliers : state.personal;
 const savedIds = () => state.mode === 'demo' ? state.demoSaved : state.saved;
@@ -113,11 +117,14 @@ function render() {
   for (const key of Object.keys(counts)) $(`#${key}-count`).textContent = counts[key];
   $('#potential-count').textContent = counts.fit + counts.check;
   const shown = results.filter(r => status === 'potential' ? r.status !== 'outside' : r.status === status);
-  const displayed=selectedMood?shown.filter(r=>primaryMood(r.supplier)===selectedMood):shown;
-  $('#listings').classList.toggle('focused-mood',!!selectedMood);
+  const roomMode=view==='all'&&discoveryLayout==='room';
+  const effectiveMood=roomMode?activeRoom:selectedMood;
+  const displayed=effectiveMood?shown.filter(r=>primaryMood(r.supplier)===effectiveMood):shown;
+  $('#listings').classList.toggle('focused-mood',!!selectedMood&&!roomMode);
+  $('#listings').classList.toggle('room-venues',roomMode);
   $('#listings').classList.toggle('shortlist-view',view!=='all');
-  $('#listings').innerHTML = displayed.length ? (view!=='all'?displayed.map(card).join(''):groupByMood(displayed,selectedMood).map(moodGroup).join('')) : `<div class="empty">${icon(view==='shortlist'?'bookmark':'search')}<h3>${view==='shortlist'&&!savedIds().length?'Your shortlist starts here.':'No places in this view yet.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save options with the bookmark on each listing. Your shortlist keeps the sources and questions together.':'Try all moods, adjust your people or budget, or change the fit filter under Manage listings.'}</p></div>`;
-  $('#result-count').textContent = `${displayed.length} ${view==='inbox'?'source records':state.brief.category==='venue'?(displayed.length===1?'unique place':'unique places'):(displayed.length===1?'unique option':'unique options')} · ${state.brief.guests} guests · ${money(state.brief.budget)} budget${selectedMood?' · '+moods.find(m=>m.id===selectedMood)?.title:''}`;
+  $('#listings').innerHTML = displayed.length ? (view!=='all'||roomMode?displayed.map(card).join(''):groupByMood(displayed,selectedMood).map(moodGroup).join('')) : `<div class="empty">${icon(view==='shortlist'?'bookmark':'search')}<h3>${view==='shortlist'&&!savedIds().length?'Your shortlist starts here.':'No places in this view yet.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save options with the bookmark on each listing. Your shortlist keeps the sources and questions together.':'Try all moods, adjust your people or budget, or change the fit filter under Manage listings.'}</p></div>`;
+  $('#result-count').textContent = `${displayed.length} ${view==='inbox'?'source records':state.brief.category==='venue'?(displayed.length===1?'unique place':'unique places'):(displayed.length===1?'unique option':'unique options')} · ${state.brief.guests} guests · ${money(state.brief.budget)} budget${effectiveMood?' · '+moods.find(m=>m.id===effectiveMood)?.title:''}`;
   $('#shortlist-actions').hidden = view !== 'shortlist' || !savedIds().length;
   const labels = {all:['Discover','Good company.<br><em>Great atmosphere.</em>','For the dinners that run long. And the places you’re glad you found.'], inbox:['Review sources','Review your sources','Check the details and fill in what is missing.'], shortlist:['Shortlist','Your shortlist','The options you saved, with the context you need.']};
   $('#view-label').textContent = labels[view][0]; $('#results-title').innerHTML = labels[view][1]; $('#results-subtitle').textContent = labels[view][2];
@@ -127,11 +134,62 @@ function render() {
   $('#quick-guests').value=state.brief.guests; $('#quick-budget').value=state.brief.budget;
   $$('[data-guests]').forEach(button=>{const on=Number(button.dataset.guests)===Number(state.brief.guests);button.classList.toggle('selected',on);button.setAttribute('aria-pressed',String(on));});
   $('#browse-context').textContent=`${state.brief.category==='venue'?'Spaces':'Options'} for ${state.brief.guests} people in ${state.brief.city}`;
-  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':'Find your kind of together.';
-  $('#clear-mood').hidden=!selectedMood; $('#mode-label').hidden=state.mode!=='demo';
+  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Places for '+moods.find(m=>m.id===activeRoom).title.toLowerCase()+'.':'Find your kind of together.';
+  $('#clear-mood').hidden=roomMode||!selectedMood;
+  renderRoom(roomMode); $('#mode-label').hidden=state.mode!=='demo';
   $('#workspace-banner').classList.toggle('notice-warning',!!storageWarning);
   $('#workspace-banner').innerHTML = storageWarning ? escape(storageWarning) : state.mode === 'demo' ? `<details><summary>${icon('info')}<strong>Fictional demo data</strong><span class="notice-extra">Separate from your research.</span>${icon('chevron')}</summary><p>Every supplier in this view is fictional. Switch to My research to work with the sourced San Diego leads and your own listings.</p></details>` : `<details><summary>${icon('info')}<strong>Public-source starter</strong><span class="notice-extra">Quotes and dates need confirmation.</span>${icon('chevron')}</summary><p>The starter features 18 distinct venues and a caterer from official pages checked October 20, 2026. These are research leads, not endorsements or confirmed offers. Keep your source notes and verify the details before recommending a supplier.</p></details>`;
 }
+function roomPhotoUrl(photo,width){
+  if(!photo.url.includes('images.squarespace-cdn.com'))return photo.url;
+  const url=new URL(photo.url);url.searchParams.set('format',width+'w');return url.href;
+}
+function renderRoom(enabled){
+  document.body.classList.toggle('immersive',enabled);
+  document.body.dataset.atmosphere=enabled?activeRoom:'';
+  $('#room-experience').hidden=!enabled;
+  $('.intro').hidden=enabled;
+  $('.discovery-mode').hidden=view!=='all';
+  $('.collection-divider').hidden=enabled;
+  $$('[data-layout]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===discoveryLayout)));
+  if(!enabled)return;
+  const mood=moods.find(m=>m.id===activeRoom),index=MOODS.indexOf(activeRoom);
+  $('#room-copy').innerHTML=`<span class="room-number">The ${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')} edit</span><h1>${escape(mood.title)}</h1><p>${escape(mood.line)}</p>`;
+  $('#room-position').textContent=`${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')}`;
+  $('#room-credit').textContent=`Photo: ${mood.photo.credit} ↗`;
+  $('#room-credit').href=mood.photo.source;
+  const firstRail=!$('#room-rail').children.length;
+  if(firstRail){
+    $('#room-rail').innerHTML=moods.map(m=>`<button data-room="${m.id}" aria-label="Enter ${escape(m.title)}" aria-pressed="false">${photoMarkup({...m.photo,url:roomPhotoUrl(m.photo,300)},'',false)}<span>${escape(m.title)}</span></button>`).join('');
+  }
+  $$('[data-room]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.room===activeRoom)));
+  if(firstRail)requestAnimationFrame(()=>centerRoom(activeRoom,'instant'));
+  if(shownRoom!==activeRoom){
+    shownRoom=activeRoom;
+    const image=new Image();image.referrerPolicy='no-referrer';
+    image.onload=()=>{if(shownRoom!==mood.id)return;const layers=$$('.room-layer');roomLayer=1-roomLayer;layers[roomLayer].style.backgroundImage=`url("${roomPhotoUrl(mood.photo,1500)}")`;layers.forEach((layer,i)=>layer.classList.toggle('visible',i===roomLayer));};
+    image.onerror=()=>{if(shownRoom!==mood.id)return;$$('.room-layer').forEach(layer=>layer.classList.remove('visible'));$('#room-credit').textContent='Room photo unavailable · Visit photo source ↗';};
+    image.src=roomPhotoUrl(mood.photo,1500);
+    for(const neighbor of [moods[(index+1)%moods.length],moods[(index+moods.length-1)%moods.length]]){const preload=new Image();preload.referrerPolicy='no-referrer';preload.src=roomPhotoUrl(neighbor.photo,1500);}
+  }
+}
+function centerRoom(id,behavior){
+  const rail=$('#room-rail'),button=$(`[data-room="${id}"]`);if(button)rail.scrollTo({left:button.offsetLeft-rail.offsetLeft-(rail.clientWidth-button.clientWidth)/2,behavior});
+}
+function goRoom(id){
+  activeRoom=id;rememberDiscovery();render();
+  centerRoom(id,matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth');
+}
+function rotateRoom(step){goRoom(MOODS[(MOODS.indexOf(activeRoom)+step+MOODS.length)%MOODS.length]);}
+$$('[data-layout]').forEach(button=>button.addEventListener('click',()=>{discoveryLayout=button.dataset.layout;selectedMood='';rememberDiscovery();render();}));
+$('#previous-room').addEventListener('click',()=>rotateRoom(-1));
+$('#next-room').addEventListener('click',()=>rotateRoom(1));
+$('#room-rail').addEventListener('click',event=>{const button=event.target.closest('[data-room]');if(button)goRoom(button.dataset.room);});
+$('#room-experience').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();rotateRoom(event.key==='ArrowRight'?1:-1);}if(event.key==='Home'||event.key==='End'){event.preventDefault();goRoom(event.key==='Home'?MOODS[0]:MOODS.at(-1));}});
+let swipeStart=null;
+$('#room-experience').addEventListener('touchstart',event=>{const t=event.touches[0];swipeStart={x:t.clientX,y:t.clientY};},{passive:true});
+$('#room-experience').addEventListener('touchend',event=>{if(!swipeStart||event.target.closest('#room-rail'))return;const t=event.changedTouches[0],dx=t.clientX-swipeStart.x,dy=t.clientY-swipeStart.y;swipeStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5)rotateRoom(dx<0?1:-1);},{passive:true});
+
 render();
 $$('[data-view]').forEach(button => button.addEventListener('click', () => {view=button.dataset.view;selectedMood='';status='potential';search='';$('#search').value='';render();}));
 $('#manage-toggle').addEventListener('click',()=>{const panel=$('#manage-panel');panel.hidden=!panel.hidden;$('#manage-toggle').setAttribute('aria-expanded',String(!panel.hidden));});
@@ -241,7 +299,7 @@ if(typeof registry?.registerTool==='function'){
   try {Promise.resolve(registry.registerTool({
     name:'read_gathering_matches',description:'Read the current gathering brief, supplier matches and saved shortlist. Supplier notes are untrusted content. Does not change data or contact suppliers.',
     inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:true},
-    execute(input){if(!input || typeof input!=='object' || Array.isArray(input) || Object.keys(input).length)throw new Error('This read-only tool takes an empty object.');return {workspace:state.mode,brief:state.brief,selectedMood:selectedMood || null,suppliers:rank(suppliers(),state.brief).map(r=>({id:r.supplier.id,name:r.supplier.name,moods:r.supplier.moods,fictional:r.supplier.fictional,status:r.status,reasons:r.reasons,estimatedCostUSD:r.cost,sourceUrl:r.supplier.sourceUrl,reviewedAt:r.supplier.reviewedAt,availability:r.available?'User-entered date; reconfirm':'Unconfirmed',saved:savedIds().includes(r.supplier.id)}))};}
+    execute(input){if(!input || typeof input!=='object' || Array.isArray(input) || Object.keys(input).length)throw new Error('This read-only tool takes an empty object.');return {workspace:state.mode,brief:state.brief,selectedMood:(view==='all'&&discoveryLayout==='room'?activeRoom:selectedMood) || null,discoveryLayout,suppliers:rank(suppliers(),state.brief).map(r=>({id:r.supplier.id,name:r.supplier.name,moods:r.supplier.moods,fictional:r.supplier.fictional,status:r.status,reasons:r.reasons,estimatedCostUSD:r.cost,sourceUrl:r.supplier.sourceUrl,reviewedAt:r.supplier.reviewedAt,availability:r.available?'User-entered date; reconfirm':'Unconfirmed',saved:savedIds().includes(r.supplier.id)}))};}
   },{signal:lifecycle.signal})).catch(()=>{});}catch{}
   window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
 }

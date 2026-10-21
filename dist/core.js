@@ -1,4 +1,4 @@
-import {MOODS} from './discovery.js';
+import {MOODS} from './discovery.js?v=room-20261021';
 export const TAGS = ['Private room', 'Outdoor space', 'AV equipment', 'Dietary options', 'Step-free access'];
 export const normalize = value => String(value ?? '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/\s+/g, ' ');
 export const money = value => new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', maximumFractionDigits: 0}).format(value);

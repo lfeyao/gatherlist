@@ -15,6 +15,8 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 
 ## What works
 
+- Room view: rotate nine moods with arrows, keyboard or touch swipes; room photography, site colours and venue suggestions change together. Switch to the equal-size Mood grid at any time. Your view and mood are remembered.
+
 - Choose System, Light or Dark from the top-right Appearance menu. The choice persists on this browser and stays separate from venue data.
 
 - Browse nine photographic mood groups, three across on desktop, with two different venues directly beneath each mood; no venue repeats across categories.
