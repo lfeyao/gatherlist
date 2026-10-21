@@ -49,3 +49,7 @@ dialog{width:min(650px,calc(100vw - 32px));max-height:90dvh;border:1px solid var
 @media(max-width:760px){.site-header{flex-wrap:nowrap;padding-top:22px;padding-bottom:22px}.header-actions{gap:15px}.account-link{font-size:10px}.workspace-nav{gap:20px}}
 @media(max-width:480px){.site-header{gap:8px;padding-top:18px;padding-bottom:18px}.place-name>span{font-size:28px}.brand-mark{width:26px}.header-actions{gap:9px}.account-link{font-size:9px}.appearance-toggle{width:29px;height:29px;padding:6px}.appearance-toggle .icon{width:15px;height:15px}.workspace-nav{gap:16px;justify-content:space-between}}
 body:not([data-workspace]) [data-review-id]{display:none}
+/* Compact masthead: keep the room closer to the top of the page. */
+.site-header{padding-top:7px;padding-bottom:7px;min-height:50px}.place-name>span{font-size:30px;letter-spacing:-1.5px}.brand-mark{width:32px;height:32px}.account-link{padding-top:7px;padding-bottom:7px}.header-actions{gap:16px}.discovery-mode{padding-top:6px;padding-bottom:9px}.immersive .discovery-mode{padding-top:6px;padding-bottom:6px}.discovery-mode button{padding-top:5px;padding-bottom:5px;font-size:9px}
+@media(max-width:760px){.site-header{padding-top:7px;padding-bottom:7px;min-height:48px}.place-name>span{font-size:29px}.brand-mark{width:30px;height:30px}}
+@media(max-width:480px){.site-header{padding-top:6px;padding-bottom:6px;min-height:44px}.place-name>span{font-size:26px}.brand-mark{width:25px;height:28px}.appearance-toggle{width:30px;height:30px}.header-actions{gap:9px}}
