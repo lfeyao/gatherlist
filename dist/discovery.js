@@ -94,15 +94,15 @@ Object.assign(photos, {
   }
 });
 export const moods = [
-  {id:'cozy',title:'Candlelit dinners',line:'Warm rooms. Unhurried conversation.',photo:photos.loft},
-  {id:'outdoor',title:'Courtyards & gardens',line:'Open skies. Space to linger.',photo:photos.garden},
-  {id:'social',title:'Art & design',line:'Gather inside a creative space.',photo:photos.bread},
-  {id:'coastal',title:'Ocean views',line:'The coast is the backdrop.',photo:photos.sahm},
-  {id:'classic',title:'Old-world charm',line:'Historic rooms with a story.',photo:photos.prado},
-  {id:'food',title:'Chef-led dining',line:'The meal is the main event.',photo:photos.juniper},
-  {id:'casual',title:'Beer & lawn games',line:'A relaxed, playful get-together.',photo:photos.stone},
-  {id:'celebrate',title:'Rooftop nights',line:'City lights. An open-air toast.',photo:photos.nolen},
-  {id:'private',title:'Hidden lounges',line:'A tucked-away cocktail escape.',photo:photos.realm},
+  {id:'cozy',title:'Date Night',line:'Warm rooms. Unhurried conversation.',photo:photos.loft},
+  {id:'outdoor',title:'Garden Party',line:'Open skies. Space to linger.',photo:photos.garden},
+  {id:'social',title:'Something Different',line:'Gather inside a creative space.',photo:photos.bread},
+  {id:'coastal',title:'Sunset Toasts',line:'The coast is the backdrop.',photo:photos.sahm},
+  {id:'classic',title:'Family Gatherings',line:'Bring everyone together.',photo:photos.prado},
+  {id:'food',title:'For the Foodies',line:'The meal is the main event.',photo:photos.juniper},
+  {id:'casual',title:'Game Day',line:'Beer, games and good company.',photo:photos.stone},
+  {id:'celebrate',title:'Out After Dark',line:'City lights. An open-air toast.',photo:photos.nolen},
+  {id:'private',title:'Our Little Secret',line:'A tucked-away cocktail escape.',photo:photos.realm},
 ];
 // One primary mood per venue. Separate rooms share the same place key.
 export const starterPresentation = {

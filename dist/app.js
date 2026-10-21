@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=header-20261021';
-import {sampleSuppliers, demoBrief} from './sample.js?v=header-20261021';
-import {researchSuppliers} from './research.js?v=header-20261021';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=header-20261021';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=names-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=names-20261021';
+import {researchSuppliers} from './research.js?v=names-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=names-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];

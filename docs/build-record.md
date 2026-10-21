@@ -110,3 +110,7 @@ Browser checks confirm a single 44px header at 320px width without overflow, aut
 ## Restore normal page scrolling — October 21, 2026
 
 Removed the deck's wheel handler and throttle state at the user's request. Vertical mouse-wheel/trackpad scrolling is no longer intercepted or mapped to mood changes. Clicks, pointer dragging, keyboard controls and horizontal touch swipes remain. Browser verification: scrolling down over the card deck moved its top from 367px to 90px while the active mood stayed private / Hidden lounges. Syntax and whitespace checks pass; no implementation-mirroring test added for this narrow interaction removal.
+
+## Consumer occasion names — October 21, 2026
+
+Applied the proposed occasion names with the user's selected refinements: Date Night; Garden Party; Something Different; Sunset Toasts; Family Gatherings; For the Foodies; Game Day; Out After Dark; Our Little Secret. Kept all underlying primary-mood IDs, venue assignments, browser records and shortlist IDs unchanged. These are editorial discovery labels; no new venue amenities, sports-screen availability, prices or booking claims were added.

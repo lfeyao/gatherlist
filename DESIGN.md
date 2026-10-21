@@ -29,3 +29,7 @@ Removed the room eyebrow, edition label, mood subtitle, gesture slogan, supporti
 ## Minimal header and workspace
 
 The browsing header contains only the wordmark, Sign up / Log in and a sun/moon icon. The icon toggles resolved Light/Dark directly and has an accessible action label. Legacy system/default preferences still work until explicitly toggled. The separate workspace.html page holds Discover, Shortlist and Manage listings; keep its shared shell synchronized with index.html when editing common markup. Hosted ChatGPT sign-in returns to that workspace through the platform-owned sign-in route. The Site's owner-private access policy remains the authentication boundary; no local-storage sign-in flag or fake password form is used.
+
+## Occasion naming
+
+Current consumer-facing titles: Date Night, Garden Party, Something Different, Sunset Toasts, Family Gatherings, For the Foodies, Game Day, Out After Dark, Our Little Secret. Stable internal mood IDs and source-backed venue assignments are unchanged. Occasion labels are editorial, not verified amenity or reservation guarantees.
