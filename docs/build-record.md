@@ -25,7 +25,7 @@ No paying customers, vendor partnerships, revenue, delivered event, time savings
 
 ## Earlier separate fork work
 
-Before the user chose Gatherlist, Codex prepared a local TickerToThesis queue-publication fix at `/Users/daiyu/Documents/codex-ambassador-application/case-study/TickerToThesis`, branch `codex/atomic-handoff-publication`. Two regression tests failed on the existing code; the fix stages a complete request before renaming it into the visible queue. All four targeted tests then passed. It is uncommitted and unpublished. It does not establish Codex authorship of the fork's three earlier Muse integration commits. Gatherlist is the stronger original application example.
+Before starting this original event-discovery project, Codex prepared a local TickerToThesis queue-publication fix at `/Users/daiyu/Documents/codex-ambassador-application/case-study/TickerToThesis`, branch `codex/atomic-handoff-publication`. Two regression tests failed on the existing code; the fix stages a complete request before renaming it into the visible queue. All four targeted tests then passed. It is uncommitted and unpublished. It does not establish Codex authorship of the fork's three earlier Muse integration commits. Gatherlist is the stronger original application example.
 
 ## Interface redesign — October 20, 2026
 
@@ -34,3 +34,13 @@ The user asked for a polished interface with a less generic visual identity. The
 Browser verification covers 1280px desktop, 768px tablet and a 320px phone iframe viewport. At 320px, a filter overflow was found and fixed; body scroll width then matched its 320px viewport. The mobile listing dialog fit within its viewport without horizontal overflow. Bookmarking retained keyboard focus; removing the last shortlist item restored focus to the Shortlist navigation. Supplier match explanations and shortlist export controls were checked after the redesign. These viewport checks are browser simulations, not physical-device testing.
 
 Font source: https://github.com/google/fonts/tree/main/ofl/instrumentsans ; its OFL license ships with the font. No packages or system tools were installed.
+
+## Customer-led mood discovery redesign
+
+The user redirected the app around people, vibe and cost, then requested nine graphic mood groups with three groups per row and venue suggestions beneath each. Replaced the research-desk home with the photographic discovery grid, compact guest/budget controls, mood exploration, venue detail dialogs and a deduplicated shortlist. Research, CSV and source tools remain accessible under Manage listings. The name and logo are still undecided.
+
+Expanded the public-source starter from four to eleven leads using official Herb & Wood, MCASD and Mingei pages. Nine overlapping mood groupings are explicitly editorial; no verified prices or availability were invented. Photos retain source and photographer credit. CUCINA/The Prado imagery is identified as general venue photography.
+
+Preserved browser records, saved IDs and the existing storage key. Added one-time starter migrations and whitelisted mood data that survives CSV export/import. Unassigned user records remain discoverable outside the nine named mood groups. WebMCP now exposes the selected mood and each record’s editorial moods.
+
+Validation: 19 automated tests passed, including mood coverage, grouping, unassigned records and CSV round trips. Browser checks covered nine groups in three desktop columns, selected-mood expansion, venue details, save/shortlist, the 40-person capacity exclusion, a $1,000 fictional-demo budget exclusion, clear demo labeling, and 320/768 px layouts. At 320 px neither the body nor guest/budget form overflowed. Temporary browser test changes were restored to 24 guests, $1,800, My research and no test bookmarks. No tools or packages were installed.

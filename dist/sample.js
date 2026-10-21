@@ -1,5 +1,5 @@
 export const demoBrief = {city: 'San Diego', category: 'venue', guests: 24, budget: 1800, hours: 3, date: '', tags: ['Private room']};
-export const sampleSuppliers = [
+const samples = [
   {id:'demo-1',name:'Juniper House',category:'venue',city:'San Diego',capacity:32,minGuests:12,priceLow:1200,priceHigh:1600,pricing:'flat',tags:['Private room','AV equipment','Step-free access'],notes:'Fictional sample: a quiet dining room for a conversation-led dinner.',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:true},
   {id:'demo-2',name:'The Olive Courtyard',category:'venue',city:'San Diego',capacity:40,minGuests:null,priceLow:1500,priceHigh:2200,pricing:'flat',tags:['Private room','Outdoor space'],notes:'Fictional sample: a courtyard with a covered dining area. Confirm the final quote.',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:true},
   {id:'demo-3',name:'Alder Table Studio',category:'venue',city:'San Diego',capacity:28,minGuests:null,priceLow:400,priceHigh:500,pricing:'hour',tags:['Private room','AV equipment'],notes:'Fictional sample: flexible studio hire. Hourly pricing scales with your event duration.',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:true},
@@ -9,3 +9,6 @@ export const sampleSuppliers = [
   {id:'demo-7',name:'The Westlight Loft',category:'venue',city:'Carlsbad',capacity:45,minGuests:null,priceLow:1000,priceHigh:1400,pricing:'flat',tags:['Private room','AV equipment'],notes:'Fictional sample: listed in Carlsbad. City matching is exact; change the brief to include it.',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:true},
   {id:'demo-8',name:'Common Ground Hall',category:'venue',city:'San Diego',capacity:null,minGuests:null,priceLow:null,priceHigh:null,pricing:'flat',tags:['Private room','Step-free access'],notes:'Fictional sample: a promising space with missing capacity and pricing. Ask before recommending.',sourceUrl:'',reviewedAt:'',availableDates:'',fictional:true},
 ];
+
+const demoMoods = [['cozy','classic','food','private'],['outdoor','coastal','casual'],['social','celebrate'],['food'],['cozy','private'],['casual'],['social','coastal'],['social','classic','celebrate']];
+export const sampleSuppliers = samples.map((s,i)=>({...s,moods:demoMoods[i]}));

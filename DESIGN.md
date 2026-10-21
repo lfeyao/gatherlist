@@ -1,22 +1,13 @@
 # Design direction
 
-## Product and use scene
+The customer starts with people, then mood, then cost. Discovery is visual, with nine mood cards in a three-by-three desktop grid and venue suggestions directly under every mood. Each mood has an actual venue photo, a short title and a source credit. Two venues preview under a mood; selecting it reveals the complete group. The shortlist contains each saved venue once.
 
-A working research desk for San Diego hosts comparing venues and vendors for small events. The primary task is to assess fit, identify missing details and save a defensible shortlist. Names and a permanent logo are undecided; "Sourcing desk" is a functional placeholder. Existing data, URLs, repository name and storage keys are preserved.
+The nine moods are Candlelit & cozy, Open-air afternoons, Artful & social, Coastal & breezy, Classic & elegant, Food comes first, Easygoing evenings, Something to celebrate, and Just your circle. Groupings overlap and are editorial suggestions, separate from verified features.
 
-## Visual decisions
+Guest presets and a custom guest count lead the controls. Budget follows; advanced features, source review, CSV import and data-management tools sit behind secondary controls. Venue cards show a real thumbnail, capacity and estimated cost or “Quote needed.” Full notes, matching reasons and source links open on demand.
 
-- Surface: Operate. Put usable results and the event brief in the first viewport.
-- Character: precise, considered and approachable. No marketing hero or decorative hospitality illustration in the application.
-- Typography: self-hosted Instrument Sans, OFL licensed. Use clear, restrained weight steps, comfortable 14–16px working text and tabular numbers for estimates.
-- Color: off-white neutral canvas, white working surfaces, ink text and one blue action color. Status colors communicate fit or uncertainty. Keep secondary text readable.
-- Structure: compact left navigation, page header, search/filter controls, supplier rows, and an adjacent event brief. On phones, condense navigation and collapse the brief behind a native disclosure.
-- Identity: typography only while the name is undecided. No decorative placeholder mark.
-- Icons: one authored 24px SVG system, consistent 1.7px stroke. Icons support visible text and accessible labels.
-- Motion: quick feedback only; honor reduced motion. No looping or entrance choreography.
+Use Instrument Sans, restrained ink typography, an almost-white canvas and a warm red action color. Photos carry the personality. The header says San Diego / Small gatherings while a permanent name and logo remain undecided. Do not restore a placeholder lettermark or assert a chosen brand.
 
-## Quality checks
+Desktop uses three columns, tablet two, phone one. Images retain context when cropped. Self-host the font with its OFL license; honor reduced motion, provide meaningful image descriptions, keyboard focus and native dialogs. Preserve local storage and portable exports. User-entered or fictional listings without a verified photo receive a clear placeholder.
 
-Check desktop and narrow layouts, long names, empty views, form focus, matching updates, save/unsave focus, dialogs and persistence. Keep the four public-source leads and the fictional demo visibly distinct. Matching rules and uncertainty must remain legible; never replace unknown facts with decorative scores.
-
-The supplied design-toolkit.md informed the art direction, hierarchy, readable typography and rendered critique. Its marketing-specific image minimums and blanket visual bans are not applied to this operational interface.
+The supplied design toolkit informed visual hierarchy and rendered critique. The user’s specific mood-and-venue hierarchy governs the implementation. Verified capacities, estimates and uncertainty must remain legible; decorative scores and fabricated prices are inappropriate.

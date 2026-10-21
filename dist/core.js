@@ -1,3 +1,4 @@
+import {MOODS} from './discovery.js';
 export const TAGS = ['Private room', 'Outdoor space', 'AV equipment', 'Dietary options', 'Step-free access'];
 export const normalize = value => String(value ?? '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase().replace(/\s+/g, ' ');
 export const money = value => new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', maximumFractionDigits: 0}).format(value);
@@ -12,6 +13,7 @@ export function validateSupplier(input) {
     sourceUrl: String(input.sourceUrl || '').trim(), notes: String(input.notes || '').trim(),
     reviewedAt: String(input.reviewedAt || ''), availableDates: String(input.availableDates || '').trim(),
     fictional: input.fictional === true,
+    moods: Array.isArray(input.moods) ? [...new Set(input.moods.filter(x => MOODS.includes(x)))] : [],
   };
   if (!supplier.name || supplier.name.length > 120) throw new Error('Enter a supplier name (up to 120 characters).');
   if (!['venue', 'catering', 'photography', 'other'].includes(supplier.category)) throw new Error('Choose a supported category.');
@@ -102,13 +104,13 @@ export function parseCSV(text) {
   return rows.map((values, i) => {
     if (values.length !== headers.length) throw new Error(`CSV row ${i + 2} has the wrong number of columns.`);
     const data = Object.fromEntries(headers.map((key, j) => [key, values[j]]));
-    return validateSupplier({...data, tags: (data.tags || '').split('|'), fictional: data.fictional === 'true', reviewedAt: ''});
+    return validateSupplier({...data, tags: (data.tags || '').split('|'), moods: (data.moods || '').split('|'), fictional: data.fictional === 'true', reviewedAt: ''});
   });
 }
-export const CSV_HEADERS = ['name', 'category', 'city', 'capacity', 'minGuests', 'priceLow', 'priceHigh', 'pricing', 'tags', 'sourceUrl', 'notes', 'availableDates', 'fictional'];
+export const CSV_HEADERS = ['name', 'category', 'city', 'capacity', 'minGuests', 'priceLow', 'priceHigh', 'pricing', 'tags', 'sourceUrl', 'notes', 'availableDates', 'fictional', 'moods'];
 export function toCSV(suppliers) {
   const cell = input => {let s = String(input ?? ''); if (/^[\s]*[=+\-@]/.test(s)) s = "'" + s; return '"' + s.replaceAll('"', '""') + '"';};
-  return [CSV_HEADERS.join(','), ...suppliers.map(s => CSV_HEADERS.map(k => cell(k === 'tags' ? s.tags.join('|') : s[k])).join(','))].join('\r\n');
+  return [CSV_HEADERS.join(','), ...suppliers.map(s => CSV_HEADERS.map(k => cell(['tags','moods'].includes(k) ? (s[k] || []).join('|') : s[k])).join(','))].join('\r\n');
 }
 export function proposal(suppliers, brief) {
   const date = brief.date || 'To be decided';

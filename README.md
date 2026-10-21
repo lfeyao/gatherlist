@@ -1,6 +1,6 @@
-# Gatherlist
+# San Diego small gatherings
 
-A working sourcing and shortlist workspace for small-event venues and vendors in San Diego. Built collaboratively with Codex on October 20, 2026. The app currently displays the functional working title "Sourcing desk" while its permanent name and identity are being developed.
+A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. The permanent name and logo are undecided; the repository and URL retain the original Gatherlist identifier.
 
 ## Try it
 
@@ -15,14 +15,16 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 
 ## What works
 
-- Configure city, category, guests, hours, vendor budget, date and required features.
+- Browse nine photographic mood groups, three across on desktop, with venues directly beneath each mood.
+- Start with guest count, browse the mood, then compare estimated cost or an honest quote-needed label.
+- Open venue details, save a unique shortlist, or refine city, category, hours, budget, date and required features.
 - Paste listing text, extract explicit fields locally, then review and save.
 - Add and edit listings with source URLs, notes, review status and explicit availability dates.
 - Compare flat, hourly and per-person prices as event estimates; distinguish fit, missing information and exclusions.
 - Save a shortlist and export a Markdown brief with sources, estimates and open questions.
 - Import UTF-8 CSV with quoted and multiline fields, all-or-nothing validation, duplicate skipping and import preview. Export a portable CSV backup.
-- Keep four public-source San Diego leads separate from eight fictional demo listings.
-- Persist workspace data in this browser; a read-only WebMCP tool exposes the current brief and matches to a browser agent.
+- Keep eleven public-source San Diego leads separate from eight fictional demo listings.
+- Persist workspace data in this browser; a read-only WebMCP tool exposes the current brief, chosen mood and matches to a browser agent.
 
 ## Boundaries
 

@@ -68,3 +68,10 @@ test('all supplied fixtures validate and real research makes no price or date cl
   for(const s of [...sampleSuppliers,...researchSuppliers])assert.doesNotThrow(()=>validateSupplier(s));
   for(const s of researchSuppliers){assert.equal(s.priceLow,null);assert.equal(s.priceHigh,null);assert.equal(s.availableDates,'');assert.equal(s.reviewedAt,'');assert.equal(s.fictional,false);}
 });
+
+test('editorial moods survive CSV round trips without becoming verified features',()=>{
+  const original=supplier({moods:['cozy','cozy','private','invented'],tags:[]});
+  assert.deepEqual(original.moods,['cozy','private']);
+  assert.deepEqual(parseCSV(toCSV([original]))[0].moods,original.moods);
+  assert.equal(evaluate(original,demoBrief).status,'check');
+});
