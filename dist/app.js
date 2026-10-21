@@ -180,11 +180,10 @@ function rotateRoom(step){goRoom(MOODS[(MOODS.indexOf(activeRoom)+step+MOODS.len
 $('#layout-toggle').addEventListener('click',()=>{discoveryLayout=discoveryLayout==='room'?'grid':'room';selectedMood='';rememberDiscovery();render();});
 $('#previous-room').addEventListener('click',()=>rotateRoom(-1));
 $('#next-room').addEventListener('click',()=>rotateRoom(1));
-let deckDragUntil=0,deckDragStart=null,deckWheelAt=0;
+let deckDragUntil=0,deckDragStart=null;
 $('#room-rail').addEventListener('pointerdown',event=>{if(event.pointerType==='mouse')deckDragStart={x:event.clientX,y:event.clientY};});
 window.addEventListener('pointerup',event=>{if(!deckDragStart)return;const dx=event.clientX-deckDragStart.x,dy=event.clientY-deckDragStart.y;deckDragStart=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){deckDragUntil=Date.now()+350;rotateRoom(dx<0?1:-1);}});
 window.addEventListener('pointercancel',()=>deckDragStart=null);
-$('#room-rail').addEventListener('wheel',event=>{if(event.ctrlKey||event.metaKey)return;const delta=Math.abs(event.deltaX)>Math.abs(event.deltaY)?event.deltaX:event.deltaY;if(Math.abs(delta)<4)return;event.preventDefault();if(Date.now()-deckWheelAt<420)return;deckWheelAt=Date.now();rotateRoom(delta>0?1:-1);},{passive:false});
 $('#room-rail').addEventListener('click',event=>{const button=event.target.closest('[data-room]');if(button&&Date.now()>deckDragUntil)goRoom(button.dataset.room);});
 $('#room-experience').addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();rotateRoom(event.key==='ArrowRight'?1:-1);}if(event.key==='Home'||event.key==='End'){event.preventDefault();goRoom(event.key==='Home'?MOODS[0]:MOODS.at(-1));}});
 let swipeStart=null;

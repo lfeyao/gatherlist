@@ -106,3 +106,7 @@ Moved the discovery layout control into the header ahead of Sign up / Log in and
 Moved guest count and budget from the lower planning strip into the middle of the masthead on both browsing and workspace pages. The compact fields apply after a short typing pause, on change, or on Enter. Removed duplicate lower controls and their preset/update-button presentation. The logo remains left; view/account/appearance controls remain right. At narrow phone widths those right-side actions use accessible icons.
 
 Browser checks confirm a single 44px header at 320px width without overflow, automatic guest filtering from 40 back to 24, and an Enter-submitted budget change to $2,000 followed by restoration to $1,800. Existing browser data and view settings are preserved. Temporary QA wrapper removed before packaging.
+
+## Restore normal page scrolling — October 21, 2026
+
+Removed the deck's wheel handler and throttle state at the user's request. Vertical mouse-wheel/trackpad scrolling is no longer intercepted or mapped to mood changes. Clicks, pointer dragging, keyboard controls and horizontal touch swipes remain. Browser verification: scrolling down over the card deck moved its top from 367px to 90px while the active mood stayed private / Hidden lounges. Syntax and whitespace checks pass; no implementation-mirroring test added for this narrow interaction removal.

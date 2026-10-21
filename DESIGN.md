@@ -18,7 +18,7 @@ Mood grid remains an alternate setting with nine equal-size image cards, three c
 
 ## Curved deck and continuous collection section
 
-The room selector is now an endless curved deck of equally sized photographic prints. The selected card stays centred; neighbouring moods wrap around both ends. Pointer dragging, mouse-wheel movement over the deck, touch swipes, buttons and keyboard controls rotate moods. The page scrolls normally outside the deck. Reduced-motion preferences remove the animated card movement.
+The room selector is now an endless curved deck of equally sized photographic prints. The selected card stays centred; neighbouring moods wrap around both ends. Pointer dragging, horizontal touch swipes, buttons and keyboard controls rotate moods. Mouse-wheel and trackpad scrolling move the page normally everywhere, including over the deck. Reduced-motion preferences remove the animated card movement.
 
 One full-width collection ground begins beneath the room scene and contains planning controls, venues and footer. No room backdrop shows through gaps between these sections. Planning controls are quiet and compact; venue photography occupies large consistent frames, with names, capacity and quote status beneath. The grid remains an equal-size, nine-mood alternate view.
 
