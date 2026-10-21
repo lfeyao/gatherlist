@@ -11,4 +11,4 @@ const samples = [
 ];
 
 const demoMoods = [['cozy','classic','food','private'],['outdoor','coastal','casual'],['social','celebrate'],['food'],['cozy','private'],['casual'],['social','coastal'],['social','classic','celebrate']];
-export const sampleSuppliers = samples.map((s,i)=>({...s,moods:demoMoods[i]}));
+export const sampleSuppliers = samples.map((s,i)=>({...s,moods:demoMoods[i].slice(0,1)}));

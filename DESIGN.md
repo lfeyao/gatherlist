@@ -1,8 +1,8 @@
 # Design direction
 
-The customer starts with people, then mood, then cost. Discovery is visual, with nine mood cards in a three-by-three desktop grid and venue suggestions directly under every mood. Each mood has an actual venue photo, a short title and a source credit. Two venues preview under a mood; selecting it reveals the complete group. The shortlist contains each saved venue once.
+The customer starts with people, then mood, then cost. Discovery is visual, with nine mood cards in a three-by-three desktop grid and venue suggestions directly under every mood. Each mood has an actual venue photo, a short title and a source credit. Two unique venues preview under a mood; selecting it reveals the complete group without reassigning venues from other moods. The shortlist contains each saved venue once.
 
-The nine moods are Candlelit & cozy, Open-air afternoons, Artful & social, Coastal & breezy, Classic & elegant, Food comes first, Easygoing evenings, Something to celebrate, and Just your circle. Groupings overlap and are editorial suggestions, separate from verified features.
+The nine moods are Candlelit dinners, Courtyards & gardens, Art & design, Ocean views, Old-world charm, Chef-led dining, Beer & lawn games, Rooftop nights, and Hidden lounges. Every venue has exactly one primary mood. A room inside an already-featured venue cannot fill a second category. The default grid contains 18 distinct venues, two per category. Editorial moods remain separate from verified features.
 
 Guest presets and a custom guest count lead the controls. Budget follows; advanced features, source review, CSV import and data-management tools sit behind secondary controls. Venue cards show a real thumbnail, capacity and estimated cost or “Quote needed.” Full notes, matching reasons and source links open on demand.
 

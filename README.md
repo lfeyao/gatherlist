@@ -15,7 +15,7 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 
 ## What works
 
-- Browse nine photographic mood groups, three across on desktop, with venues directly beneath each mood.
+- Browse nine photographic mood groups, three across on desktop, with two different venues directly beneath each mood; no venue repeats across categories.
 - Start with guest count, browse the mood, then compare estimated cost or an honest quote-needed label.
 - Open venue details, save a unique shortlist, or refine city, category, hours, budget, date and required features.
 - Paste listing text, extract explicit fields locally, then review and save.
@@ -23,7 +23,7 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 - Compare flat, hourly and per-person prices as event estimates; distinguish fit, missing information and exclusions.
 - Save a shortlist and export a Markdown brief with sources, estimates and open questions.
 - Import UTF-8 CSV with quoted and multiline fields, all-or-nothing validation, duplicate skipping and import preview. Export a portable CSV backup.
-- Keep eleven public-source San Diego leads separate from eight fictional demo listings.
+- Feature 18 distinct San Diego venues across nine primary moods, plus a sourced caterer. Older room records remain available for review, saved lists and export; eight fictional demo listings stay separate.
 - Persist workspace data in this browser; a read-only WebMCP tool exposes the current brief, chosen mood and matches to a browser agent.
 
 ## Boundaries

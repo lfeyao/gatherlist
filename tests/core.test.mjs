@@ -71,7 +71,7 @@ test('all supplied fixtures validate and real research makes no price or date cl
 
 test('editorial moods survive CSV round trips without becoming verified features',()=>{
   const original=supplier({moods:['cozy','cozy','private','invented'],tags:[]});
-  assert.deepEqual(original.moods,['cozy','private']);
+  assert.deepEqual(original.moods,['cozy']);
   assert.deepEqual(parseCSV(toCSV([original]))[0].moods,original.moods);
   assert.equal(evaluate(original,demoBrief).status,'check');
 });

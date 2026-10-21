@@ -44,3 +44,15 @@ Expanded the public-source starter from four to eleven leads using official Herb
 Preserved browser records, saved IDs and the existing storage key. Added one-time starter migrations and whitelisted mood data that survives CSV export/import. Unassigned user records remain discoverable outside the nine named mood groups. WebMCP now exposes the selected mood and each record’s editorial moods.
 
 Validation: 19 automated tests passed, including mood coverage, grouping, unassigned records and CSV round trips. Browser checks covered nine groups in three desktop columns, selected-mood expansion, venue details, save/shortlist, the 40-person capacity exclusion, a $1,000 fictional-demo budget exclusion, clear demo labeling, and 320/768 px layouts. At 320 px neither the body nor guest/budget form overflowed. Temporary browser test changes were restored to 24 guests, $1,800, My research and no test bookmarks. No tools or packages were installed.
+
+## Distinct places in distinct categories
+
+The user identified repeated venues across mood groups. Replaced the overlapping starter assignments with one primary mood per venue, tightened the nine themes, and researched thirteen additional venues to supply 18 distinct places. Different rooms at Herb & Wood, MCASD and Mingei count as the same place; old room records stay available for review, saved lists and exports but do not pad discovery. No fictional venues fill gaps.
+
+The listing editor now uses a single primary-mood radio group. Validation and CSV import retain one mood; the grouping logic also handles legacy multiple-mood data, deduplicates room aliases and assigns before selected-category filtering. A one-time migration adds new leads and updates curated mood assignments while preserving edited fields, saved IDs and later deletions.
+
+The nine groups are Candlelit dinners; Courtyards & gardens; Art & design; Ocean views; Old-world charm; Chef-led dining; Beer & lawn games; Rooftop nights; Hidden lounges. Each has two distinct venue businesses in the default 24-person view. Real capacity and budget filters may reduce the count; they never borrow a venue from another group to fill a slot.
+
+Validation: 22 tests passed, including 18 unique featured venue IDs and business identities, single primary mood/CSV round trip, legacy room-alias deduplication, stable selected-category membership and migration preservation. Browser inspection confirmed 18 cards, 18 unique IDs and nine groups, all with two venues. No broken loaded images were reported. Selected Art & design retained exactly Bread & Salt and Mingei.
+
+Additional browser checks: saving a new Bread & Salt lead produced a single shortlist card; removing the test bookmark restored the initial state. The listing editor contained ten mood radios (nine categories plus Not assigned), zero mood checkboxes and exactly one checked option. At 320 px there were still 18 unique cards with no horizontal overflow; the 768 px layout used two columns.

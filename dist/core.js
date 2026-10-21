@@ -13,7 +13,7 @@ export function validateSupplier(input) {
     sourceUrl: String(input.sourceUrl || '').trim(), notes: String(input.notes || '').trim(),
     reviewedAt: String(input.reviewedAt || ''), availableDates: String(input.availableDates || '').trim(),
     fictional: input.fictional === true,
-    moods: Array.isArray(input.moods) ? [...new Set(input.moods.filter(x => MOODS.includes(x)))] : [],
+    moods: Array.isArray(input.moods) ? [...new Set(input.moods.filter(x => MOODS.includes(x)))].slice(0,1) : [],
   };
   if (!supplier.name || supplier.name.length > 120) throw new Error('Enter a supplier name (up to 120 characters).');
   if (!['venue', 'catering', 'photography', 'other'].includes(supplier.category)) throw new Error('Choose a supported category.');

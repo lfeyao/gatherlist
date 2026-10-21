@@ -1,7 +1,7 @@
 import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js';
 import {sampleSuppliers, demoBrief} from './sample.js';
 import {researchSuppliers} from './research.js';
-import {MOODS, moods, starterPresentation, groupByMood} from './discovery.js';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -33,6 +33,7 @@ if(!state.nineMoodsAdded){
   }
   state.nineMoodsAdded=true;
 }
+migrateDistinctCatalog(state,researchSuppliers);
 let selectedMood = '';
 let view = 'all', status = 'potential', search = '', pendingImport = [], toastTimer, undoAction, editingFictional = false;
 const suppliers = () => state.mode === 'demo' ? sampleSuppliers : state.personal;
@@ -62,6 +63,7 @@ $('#brief-disclosure').open=false;
 persist();
 function currentResults() {
   let results = rank(suppliers(), state.brief);
+  if(view==='all')results=distinctVenues(results);
   if (view === 'shortlist') results = results.filter(r => savedIds().includes(r.supplier.id));
   if (view === 'inbox') results = results.filter(r => !r.supplier.reviewedAt);
   if (search) results = results.filter(({supplier:s}) => normalize([s.name,s.city,s.notes,...s.tags].join(' ')).includes(normalize(search)));
@@ -105,17 +107,17 @@ function render() {
   $('#workspace-mode').value = state.mode;
   const list = suppliers(), results = currentResults();
   const counts = {fit:0,check:0,outside:0}; results.forEach(r => counts[r.status]++);
-  $('#all-count').textContent = list.length;
+  $('#all-count').textContent = distinctVenues(rank(list,state.brief)).filter(r=>r.status!=='outside').length;
   $('#inbox-count').textContent = list.filter(s => !s.reviewedAt).length;
   $('#saved-count').textContent = list.filter(s => savedIds().includes(s.id)).length;
   for (const key of Object.keys(counts)) $(`#${key}-count`).textContent = counts[key];
   $('#potential-count').textContent = counts.fit + counts.check;
   const shown = results.filter(r => status === 'potential' ? r.status !== 'outside' : r.status === status);
-  const displayed=selectedMood?shown.filter(r=>r.supplier.moods?.includes(selectedMood)):shown;
+  const displayed=selectedMood?shown.filter(r=>primaryMood(r.supplier)===selectedMood):shown;
   $('#listings').classList.toggle('focused-mood',!!selectedMood);
-  $('#listings').classList.toggle('shortlist-view',view==='shortlist');
-  $('#listings').innerHTML = displayed.length ? (view==='shortlist'?displayed.map(card).join(''):groupByMood(displayed,selectedMood).map(moodGroup).join('')) : `<div class="empty">${icon(view==='shortlist'?'bookmark':'search')}<h3>${view==='shortlist'&&!savedIds().length?'Your shortlist starts here.':'No places in this view yet.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save options with the bookmark on each listing. Your shortlist keeps the sources and questions together.':'Try all moods, adjust your people or budget, or change the fit filter under Manage listings.'}</p></div>`;
-  $('#result-count').textContent = `${displayed.length} ${state.brief.category==='venue'?(displayed.length===1?'unique place':'unique places'):(displayed.length===1?'unique option':'unique options')} · ${state.brief.guests} guests · ${money(state.brief.budget)} budget${selectedMood?' · '+moods.find(m=>m.id===selectedMood)?.title:''}`;
+  $('#listings').classList.toggle('shortlist-view',view!=='all');
+  $('#listings').innerHTML = displayed.length ? (view!=='all'?displayed.map(card).join(''):groupByMood(displayed,selectedMood).map(moodGroup).join('')) : `<div class="empty">${icon(view==='shortlist'?'bookmark':'search')}<h3>${view==='shortlist'&&!savedIds().length?'Your shortlist starts here.':'No places in this view yet.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save options with the bookmark on each listing. Your shortlist keeps the sources and questions together.':'Try all moods, adjust your people or budget, or change the fit filter under Manage listings.'}</p></div>`;
+  $('#result-count').textContent = `${displayed.length} ${view==='inbox'?'source records':state.brief.category==='venue'?(displayed.length===1?'unique place':'unique places'):(displayed.length===1?'unique option':'unique options')} · ${state.brief.guests} guests · ${money(state.brief.budget)} budget${selectedMood?' · '+moods.find(m=>m.id===selectedMood)?.title:''}`;
   $('#shortlist-actions').hidden = view !== 'shortlist' || !savedIds().length;
   const labels = {all:['Discover','What’s the mood?','Find a San Diego spot for your people.'], inbox:['Review sources','Review your sources','Check the details and fill in what is missing.'], shortlist:['Shortlist','Your shortlist','The options you saved, with the context you need.']};
   $('#view-label').textContent = labels[view][0]; $('#results-title').innerHTML = labels[view][1]; $('#results-subtitle').textContent = labels[view][2];
@@ -128,7 +130,7 @@ function render() {
   $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':'Pick a mood. There’s a place for it.';
   $('#clear-mood').hidden=!selectedMood; $('#mode-label').hidden=state.mode!=='demo';
   $('#workspace-banner').classList.toggle('notice-warning',!!storageWarning);
-  $('#workspace-banner').innerHTML = storageWarning ? escape(storageWarning) : state.mode === 'demo' ? `<details><summary>${icon('info')}<strong>Fictional demo data</strong><span class="notice-extra">Separate from your research.</span>${icon('chevron')}</summary><p>Every supplier in this view is fictional. Switch to My research to work with the sourced San Diego leads and your own listings.</p></details>` : `<details><summary>${icon('info')}<strong>Public-source starter</strong><span class="notice-extra">Quotes and dates need confirmation.</span>${icon('chevron')}</summary><p>The starter includes eleven leads from official pages checked October 20, 2026. These are research leads, not endorsements or confirmed offers. Keep your source notes and verify the details before recommending a supplier.</p></details>`;
+  $('#workspace-banner').innerHTML = storageWarning ? escape(storageWarning) : state.mode === 'demo' ? `<details><summary>${icon('info')}<strong>Fictional demo data</strong><span class="notice-extra">Separate from your research.</span>${icon('chevron')}</summary><p>Every supplier in this view is fictional. Switch to My research to work with the sourced San Diego leads and your own listings.</p></details>` : `<details><summary>${icon('info')}<strong>Public-source starter</strong><span class="notice-extra">Quotes and dates need confirmation.</span>${icon('chevron')}</summary><p>The starter features 18 distinct venues and a caterer from official pages checked October 20, 2026. These are research leads, not endorsements or confirmed offers. Keep your source notes and verify the details before recommending a supplier.</p></details>`;
 }
 render();
 $$('[data-view]').forEach(button => button.addEventListener('click', () => {view=button.dataset.view;selectedMood='';status='potential';search='';$('#search').value='';render();}));
@@ -166,7 +168,7 @@ $('#listings').addEventListener('click', event => {
   showToast(state[key].includes(id)?'Saved to your shortlist.':'Removed from your shortlist.');
 });
 function fillListing(data) {
-  $('#listing-moods').innerHTML=moods.map(m=>`<label class="tag-choice"><input type="checkbox" name="moods" value="${m.id}" ${(data.moods||[]).includes(m.id)?'checked':''}>${escape(m.title)}</label>`).join('');
+  $('#listing-moods').innerHTML=`<label class="tag-choice"><input type="radio" name="moods" value="" ${!primaryMood(data)?'checked':''}>Not assigned</label>`+moods.map(m=>`<label class="tag-choice"><input type="radio" name="moods" value="${m.id}" ${primaryMood(data)===m.id?'checked':''}>${escape(m.title)}</label>`).join('');
   const form = $('#listing-form');
   for (const key of ['id','name','category','city','capacity','minGuests','priceLow','priceHigh','pricing','sourceUrl','availableDates','notes']) form.elements[key].value = data[key] ?? '';
   form.elements.reviewed.checked = !!data.reviewedAt;
