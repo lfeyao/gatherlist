@@ -6,91 +6,91 @@ TAP version 13
 # Subtest: per-person and hourly estimates use guest count and event duration
 ok 1 - per-person and hourly estimates use guest count and event duration
   ---
-  duration_ms: 1.629416
+  duration_ms: 1.519541
   type: 'test'
   ...
 # Subtest: unknown price and capacity stay unknown rather than becoming zero or a fit
 ok 2 - unknown price and capacity stay unknown rather than becoming zero or a fit
   ---
-  duration_ms: 0.211625
+  duration_ms: 0.248375
   type: 'test'
   ...
 # Subtest: minimum spend that fits does not establish that the final quote fits
 ok 3 - minimum spend that fits does not establish that the final quote fits
   ---
-  duration_ms: 8.259083
+  duration_ms: 9.147167
   type: 'test'
   ...
 # Subtest: capacity, minimum guests, city and category can disqualify a supplier
 ok 4 - capacity, minimum guests, city and category can disqualify a supplier
   ---
-  duration_ms: 0.237917
+  duration_ms: 0.715209
   type: 'test'
   ...
 # Subtest: an unstated required feature needs clarification; no availability is invented
 ok 5 - an unstated required feature needs clarification; no availability is invented
   ---
-  duration_ms: 1.1105
+  duration_ms: 0.638
   type: 'test'
   ...
 # Subtest: ranking prioritizes stated fit, then clarification, then exclusions
 ok 6 - ranking prioritizes stated fit, then clarification, then exclusions
   ---
-  duration_ms: 0.115916
+  duration_ms: 0.140125
   type: 'test'
   ...
 # Subtest: listing extraction extracts explicit fields and keeps missing values blank
 ok 7 - listing extraction extracts explicit fields and keeps missing values blank
   ---
-  duration_ms: 0.553083
+  duration_ms: 0.5835
   type: 'test'
   ...
 # Subtest: extraction does not promote common negatives or semi-private rooms to positive features
 ok 8 - extraction does not promote common negatives or semi-private rooms to positive features
   ---
-  duration_ms: 0.107834
+  duration_ms: 0.114833
   type: 'test'
   ...
 # Subtest: availability dates must be real calendar dates
 ok 9 - availability dates must be real calendar dates
   ---
-  duration_ms: 0.399
+  duration_ms: 0.443
   type: 'test'
   ...
 # Subtest: CSV handles quoted commas, quotes, multiline notes and UTF-8 BOM
 ok 10 - CSV handles quoted commas, quotes, multiline notes and UTF-8 BOM
   ---
-  duration_ms: 0.481792
+  duration_ms: 0.529042
   type: 'test'
   ...
 # Subtest: CSV validation is all-or-nothing and rejects malformed values and links
 ok 11 - CSV validation is all-or-nothing and rejects malformed values and links
   ---
-  duration_ms: 0.172625
+  duration_ms: 0.176917
   type: 'test'
   ...
 # Subtest: CSV cells that could be formulas are escaped
 ok 12 - CSV cells that could be formulas are escaped
   ---
-  duration_ms: 0.062042
+  duration_ms: 0.062166
   type: 'test'
   ...
 # Subtest: CSV exports preserve fictional labels so demo rows cannot silently become real
 ok 13 - CSV exports preserve fictional labels so demo rows cannot silently become real
   ---
-  duration_ms: 0.07575
+  duration_ms: 0.077792
   type: 'test'
   ...
 # Subtest: proposal preserves uncertainty, provenance and fictional labels
 ok 14 - proposal preserves uncertainty, provenance and fictional labels
   ---
-  duration_ms: 0.207542
+  duration_ms: 0.217791
   type: 'test'
   ...
 # Subtest: all supplied fixtures validate and real research makes no price or date claim
 ok 15 - all supplied fixtures validate and real research makes no price or date claim
   ---
-  duration_ms: 0.058875
+  duration_ms: 0.073334
   type: 'test'
   ...
 1..15
@@ -101,4 +101,4 @@ ok 15 - all supplied fixtures validate and real research makes no price or date 
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 50.500375
+# duration_ms 53.045291

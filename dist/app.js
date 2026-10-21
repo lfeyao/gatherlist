@@ -43,6 +43,7 @@ function populateBrief() {
   tagChoices('#brief-tags', 'brief-tag', state.brief.tags);
 }
 populateBrief();
+if(matchMedia('(max-width:760px)').matches) $('#brief-disclosure').open=false;
 function currentResults() {
   let results = rank(suppliers(), state.brief);
   if (view === 'shortlist') results = results.filter(r => savedIds().includes(r.supplier.id));
@@ -56,22 +57,27 @@ function priceLabel(cost) {
   return cost.high === cost.low ? money(cost.low) : `${money(cost.low)}–${money(cost.high)}`;
 }
 const categoryName = {venue:'Venue',catering:'Catering',photography:'Photography',other:'Vendor'};
+const icon = name => `<svg class="icon" aria-hidden="true"><use href="icons.svg#${name}"/></svg>`;
 function card(result) {
   const {supplier:s,cost,reasons,status:fit,available} = result;
   const saved = savedIds().includes(s.id);
   let domain = '';
   if (s.sourceUrl) {try {domain = new URL(s.sourceUrl).hostname.replace(/^www\./,'');} catch {}}
+  const missing = reasons.filter(r => r.kind === 'unknown').length;
+  const excluded = reasons.filter(r => r.kind === 'no').length;
+  const summary = excluded ? `${excluded} ${excluded===1?'reason':'reasons'} outside your brief` : missing ? `${missing} ${missing===1?'detail':'details'} to confirm` : 'How this fits your brief';
   return `<article class="listing" data-id="${escape(s.id)}">
-    <div class="card-top"><div class="card-icon" aria-hidden="true">${s.category==='venue'?'⌂':s.category==='catering'?'♧':'✳'}</div><div class="card-main"><h3><button data-action="edit" data-id="${escape(s.id)}">${escape(s.name)}</button></h3><div class="card-meta">${escape(categoryName[s.category])} <span>·</span> ${escape(s.city || 'City unknown')}${s.fictional?' · FICTIONAL':''}</div></div><button class="save-button ${saved?'saved':''}" data-action="save" data-id="${escape(s.id)}" aria-label="${saved?'Remove':'Save'} ${escape(s.name)} ${saved?'from':'to'} shortlist" aria-pressed="${saved}">${saved?'★':'☆'}</button></div>
-    <p class="listing-note">${escape(s.notes || 'No notes yet. Add the context that will help you choose.')}</p>
-    <div class="card-data"><div class="card-price">${escape(priceLabel(cost))}<small>${cost.low===null?'ASK FOR A FINAL QUOTE':'EST. VENDOR TOTAL · USD'}</small></div><div class="card-capacity">${s.capacity===null?'Not stated':escape(s.capacity)+' guests'}<small>MAXIMUM CAPACITY</small></div><span class="fit-label ${fit}">${{fit:'✓ Fits brief',check:'◌ Needs clarity',outside:'↗ Outside brief'}[fit]}</span></div>
-    <div class="card-reasons">${reasons.map(r => `<span class="reason ${r.kind}">${r.kind==='yes'?'✓':r.kind==='no'?'×':'?'} ${escape(r.text)}</span>`).join('')}</div>
-    <div class="card-bottom"><span>${s.fictional?'Fictional demo listing':domain?`<a href="${escape(s.sourceUrl)}" target="_blank" rel="noopener noreferrer">↗ ${escape(domain)}</a>`:'No source link'}</span><span><span class="source-dot"></span>${s.reviewedAt?'Reviewed '+escape(s.reviewedAt):'Not yet reviewed by you'}</span></div>
-    ${state.brief.date?`<div class="outreach-note">${available?'Date entered as available · reconfirm before booking':'Availability for '+escape(state.brief.date)+' needs confirmation'}</div>`:''}
+    <div class="card-top"><div class="card-main"><h3><button data-action="edit" data-id="${escape(s.id)}">${escape(s.name)}</button></h3><div class="card-meta"><span>${escape(categoryName[s.category])}</span><span class="separator" aria-hidden="true"></span><span>${escape(s.city || 'City not supplied')}</span>${s.fictional?'<span class="fiction-label">Fictional sample</span>':''}</div></div><button class="save-button ${saved?'saved':''}" data-action="save" data-id="${escape(s.id)}" aria-label="${saved?'Remove':'Save'} ${escape(s.name)} ${saved?'from':'to'} shortlist" aria-pressed="${saved}">${icon('bookmark')}</button></div>
+    <p class="listing-note">${escape(s.notes || 'Add source notes to keep the important context with this listing.')}</p>
+    <div class="card-data"><div><span class="metric-label">Estimated total${cost.low===null?'':' · USD'}</span><span class="metric-value ${cost.low===null?'unknown':''}">${escape(priceLabel(cost))}</span></div><div><span class="metric-label">Capacity</span><span class="metric-value ${s.capacity===null?'unknown':''}">${s.capacity===null?'Not supplied':escape(s.capacity)+' guests'}</span></div><span class="fit-label ${fit}">${icon(fit==='fit'?'check':fit==='outside'?'close':'info')}${{fit:'Fits brief',check:'Needs details',outside:'Outside brief'}[fit]}</span></div>
+    <details class="match-detail"><summary>${escape(summary)}${icon('chevron')}</summary><ul class="card-reasons">${reasons.map(r => `<li class="reason ${r.kind}">${icon(r.kind==='yes'?'check':r.kind==='no'?'close':'info')}<span>${escape(r.text)}</span></li>`).join('')}</ul></details>
+    <div class="card-bottom"><span>${s.fictional?'Fictional demo listing':domain?`<a href="${escape(s.sourceUrl)}" target="_blank" rel="noopener noreferrer">${icon('external')}${escape(domain)}</a>`:'No source link supplied'}</span><span class="review-state">${s.reviewedAt?icon('check')+'Reviewed '+escape(s.reviewedAt):'Awaiting your review'}</span></div>
+    ${state.brief.date?`<div class="outreach-note">${available?'Date entered as available. Reconfirm before booking.':'Availability for '+escape(state.brief.date)+' needs confirmation.'}</div>`:''}
   </article>`;
 }
 function render() {
-  $('.art-table span').textContent = state.brief.guests;
+  $('#sidebar-city').textContent = state.brief.city;
+  $('#brief-summary').textContent = `${state.brief.guests} guests in ${state.brief.city}`;
   $('#workspace-mode').value = state.mode;
   const list = suppliers(), results = currentResults();
   const counts = {fit:0,check:0,outside:0}; results.forEach(r => counts[r.status]++);
@@ -81,14 +87,15 @@ function render() {
   for (const key of Object.keys(counts)) $(`#${key}-count`).textContent = counts[key];
   $('#potential-count').textContent = counts.fit + counts.check;
   const shown = results.filter(r => status === 'potential' ? r.status !== 'outside' : r.status === status);
-  $('#listings').innerHTML = shown.length ? shown.map(card).join('') : `<div class="empty"><span aria-hidden="true">${view==='shortlist'?'☆':'✳'}</span><h3>${view==='shortlist'&&!savedIds().length?'Start with a few possibilities.':'A little room to explore.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save suppliers using the star on each card.':'No listings match this view. Try another fit tab, clear your search, or add a listing.'}</p></div>`;
+  $('#listings').innerHTML = shown.length ? shown.map(card).join('') : `<div class="empty">${icon(view==='shortlist'?'bookmark':'search')}<h3>${view==='shortlist'&&!savedIds().length?'Your shortlist starts here.':'No suppliers in this view.'}</h3><p>${view==='shortlist'&&!savedIds().length?'Save options with the bookmark on each listing. Your shortlist keeps the sources and questions together.':'Try another fit tab, clear your search, or add a listing to your research.'}</p></div>`;
   $('#result-count').textContent = `${shown.length} of ${results.length} ${view==='shortlist'?'saved suppliers':'suppliers'} · sorted by stated fit`;
   $('#shortlist-actions').hidden = view !== 'shortlist' || !savedIds().length;
-  const labels = {all:['Discovery','Your discovery desk','Research with context. Compare with confidence.'], inbox:['Source inbox','A closer look at the details','Review your sources, fill the gaps, keep the context.'], shortlist:['Shortlist','Your gathering, taking shape','A few good possibilities. One thoughtful decision.']};
+  const labels = {all:['Discover','Venues & vendors','Compare local options against your event brief.'], inbox:['Review sources','Review your sources','Check the details and fill in what is missing.'], shortlist:['Shortlist','Your shortlist','The options you saved, with the context you need.']};
   $('#view-label').textContent = labels[view][0]; $('#results-title').textContent = labels[view][1]; $('#results-subtitle').textContent = labels[view][2];
-  $$('[data-view]').forEach(button => button.classList.toggle('active',button.dataset.view===view));
+  $$('[data-view]').forEach(button => {button.classList.toggle('active',button.dataset.view===view);if(button.dataset.view===view)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
   $$('[data-status]').forEach(button => {button.classList.toggle('selected',button.dataset.status===status);button.setAttribute('aria-pressed',String(button.dataset.status===status));});
-  $('#workspace-banner').innerHTML = storageWarning ? `<span>!</span><div>${escape(storageWarning)}</div>` : state.mode === 'demo' ? '<span>◌</span><div><strong>Fictional demo.</strong> Every supplier here is made up to show how matching works. Your real listings stay in the San Diego workspace.</div>' : '<span>↗</span><div><strong>San Diego research starter.</strong> Four leads from official public pages, checked Oct 20, 2026. Pricing and dates need confirmation. Add your own findings as you go.</div>';
+  $('#workspace-banner').classList.toggle('notice-warning',!!storageWarning);
+  $('#workspace-banner').innerHTML = storageWarning ? escape(storageWarning) : state.mode === 'demo' ? `<details><summary>${icon('info')}<strong>Fictional demo data</strong><span class="notice-extra">Separate from your research.</span>${icon('chevron')}</summary><p>Every supplier in this view is fictional. Switch to My research to work with the sourced San Diego leads and your own listings.</p></details>` : `<details><summary>${icon('info')}<strong>Public-source starter</strong><span class="notice-extra">Quotes and dates need confirmation.</span>${icon('chevron')}</summary><p>The starter includes four leads from official pages checked October 20, 2026. These are research leads, not endorsements or confirmed offers. Keep your source notes and verify the details before recommending a supplier.</p></details>`;
 }
 render();
 $$('[data-view]').forEach(button => button.addEventListener('click', () => {view=button.dataset.view;status='potential';search='';$('#search').value='';render();}));
@@ -108,7 +115,10 @@ $('#listings').addEventListener('click', event => {
   const key = state.mode === 'demo' ? 'demoSaved' : 'saved';
   const id = button.dataset.id;
   if (state[key].includes(id)) state[key] = state[key].filter(x => x !== id); else state[key].push(id);
-  persist();render();showToast(state[key].includes(id)?'Saved to your shortlist.':'Removed from your shortlist.');
+  persist();render();
+  const replacement=$(`[data-action="save"][data-id="${CSS.escape(id)}"]`);
+  (replacement || $(`[data-view="${view}"]`)).focus({preventScroll:true});
+  showToast(state[key].includes(id)?'Saved to your shortlist.':'Removed from your shortlist.');
 });
 function fillListing(data) {
   const form = $('#listing-form');
@@ -119,7 +129,7 @@ function fillListing(data) {
 function openListing(supplier) {
   const form = $('#listing-form');form.reset();editingFictional = !!supplier?.fictional;
   $('#listing-error').textContent = ''; $('#raw-listing').value = '';
-  $('#listing-dialog-title').textContent = editingFictional?'A fictional possibility':supplier?'Review the details':'Add a possibility';
+  $('#listing-dialog-title').textContent = editingFictional?'Fictional sample listing':supplier?'Review listing':'Add a listing';
   $('#paste-section').hidden = !!supplier;
   fillListing(supplier || {category:state.brief.category === 'all'?'venue':state.brief.category,pricing:'flat',city:state.brief.city});
   $('#delete-listing').hidden = !supplier || editingFictional;
@@ -141,7 +151,7 @@ $('#listing-form').addEventListener('submit',event => {
     const existing=state.personal.find(s=>s.id===data.get('id'));
     const supplier=validateSupplier({...Object.fromEntries(data),tags:data.getAll('tags'),reviewedAt:data.get('reviewed')?localDate():'',fictional:false});
     if(existing)state.personal=state.personal.map(s=>s.id===supplier.id?supplier:s);else state.personal.push(supplier);
-    state.mode='personal';view='all';status='potential';search='';$('#search').value='';persist();render();$('#listing-dialog').close();showToast('Listing saved to your San Diego workspace.');
+    state.mode='personal';view='all';status='potential';search='';$('#search').value='';persist();render();$('#listing-dialog').close();showToast('Listing saved to your research workspace.');
   } catch(error){$('#listing-error').textContent=error.message;}
 });
 $('#delete-listing').addEventListener('click',() => {
@@ -154,10 +164,10 @@ $('#delete-listing').addEventListener('click',() => {
 function download(filename,text,type) {
   const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
-$('#export-csv').addEventListener('click',() => {download(`gatherlist-${state.mode}-${localDate()}.csv`,toCSV(suppliers()),'text/csv;charset=utf-8');showToast(`Exported ${suppliers().length} listings.`);});
-$('#export-proposal').addEventListener('click',() => {const selected=suppliers().filter(s=>savedIds().includes(s.id));if(!selected.length)return;download(`gatherlist-shortlist-${localDate()}.md`,proposal(selected,state.brief),'text/markdown;charset=utf-8');showToast('Shortlist exported with sources and open questions.');});
+$('#export-csv').addEventListener('click',() => {download(`event-sourcing-${state.mode}-${localDate()}.csv`,toCSV(suppliers()),'text/csv;charset=utf-8');showToast(`Exported ${suppliers().length} listings.`);});
+$('#export-proposal').addEventListener('click',() => {const selected=suppliers().filter(s=>savedIds().includes(s.id));if(!selected.length)return;download(`event-shortlist-${localDate()}.md`,proposal(selected,state.brief),'text/markdown;charset=utf-8');showToast('Shortlist exported with sources and open questions.');});
 $('#import-csv').addEventListener('click',() => {pendingImport=[];$('#csv-file').value='';$('#import-error').textContent='';$('#import-preview').textContent='';$('#confirm-import').disabled=true;$('#import-dialog').showModal();});
-$('#csv-template').addEventListener('click',() => download('gatherlist-template.csv',CSV_HEADERS.join(',')+'\r\n"Your supplier","venue","San Diego","30","","1200","1500","flat","Private room","https://example.com","Replace this example with your source notes","","false"','text/csv;charset=utf-8'));
+$('#csv-template').addEventListener('click',() => download('supplier-template.csv',CSV_HEADERS.join(',')+'\r\n"Your supplier","venue","San Diego","30","","1200","1500","flat","Private room","https://example.com","Replace this example with your source notes","","false"','text/csv;charset=utf-8'));
 $('#csv-file').addEventListener('change', async event => {
   pendingImport=[];$('#confirm-import').disabled=true;$('#import-error').textContent='';$('#import-preview').textContent='';
   const file=event.target.files[0];if(!file)return;
@@ -174,6 +184,7 @@ $('#csv-file').addEventListener('change', async event => {
 });
 $('#confirm-import').addEventListener('click',() => {if(!pendingImport.length)return;const count=pendingImport.length;state.personal.push(...pendingImport);pendingImport=[];state.mode='personal';view='all';status='potential';persist();render();$('#import-dialog').close();showToast(`Imported ${count} listings. Review the source details next.`);});
 $('#about').addEventListener('click',() => $('#about-dialog').showModal());
+$$('[data-about]').forEach(button=>button.addEventListener('click',()=>$('#about-dialog').showModal()));
 
 // A read-only tool lets a browser agent inspect the same matches shown in the UI.
 const registry=document.modelContext;

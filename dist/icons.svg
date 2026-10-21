@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="10.7" cy="10.7" r="6.5"/><path d="m16 16 4 4"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="bookmark" viewBox="0 0 24 24"><path d="M6.5 4.5h11v16L12 17l-5.5 3.5z"/></symbol>
+<symbol id="discover" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+<symbol id="inbox" viewBox="0 0 24 24"><path d="M4 14V5h16v9l-3 5H7l-3-5Z"/><path d="M4 14h5l1 2h4l1-2h5"/></symbol>
+<symbol id="external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M10 5H5v14h14v-5"/></symbol>
+<symbol id="download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+<symbol id="close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="chevron" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v.2"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="device" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="13" rx="2"/><path d="M8 21h8m-4-5v5"/></symbol>
+</defs></svg>

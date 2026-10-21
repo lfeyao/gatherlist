@@ -1,6 +1,6 @@
 # Gatherlist
 
-A working sourcing and shortlist workspace for small-event venues and vendors in San Diego. Built collaboratively with Codex on October 20, 2026.
+A working sourcing and shortlist workspace for small-event venues and vendors in San Diego. Built collaboratively with Codex on October 20, 2026. The app currently displays the functional working title "Sourcing desk" while its permanent name and identity are being developed.
 
 ## Try it
 
@@ -11,7 +11,7 @@ npm test
 npm run preview
 ```
 
-Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package installation, API key or build step is needed.
+Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package installation, API key or build step is needed. Instrument Sans is self-hosted with its OFL license in `dist/fonts/`.
 
 ## What works
 
