@@ -82,3 +82,7 @@ The user disliked the section beneath the carousel and requested another review 
 Wrapped gathering controls, venue cards and footer in a continuous full-width collection section. Removed the disjoint solid blocks and exposed background seams. The controls use a quiet arrow action; venue cards now have large equal photo frames with readable names and uncertainty beneath. Existing data, theme preferences and primary-mood membership are preserved.
 
 Validation: 25 automated checks pass. Browser checks confirm wheel rotation from 08 to 09 and a pointer drag wrapping 09 to 01, Light/Dark section palettes, nine equal grid cover heights, and venue detail opening. At 320px the body and collection shell are 320px wide, the planning form is 288px with no internal overflow, and both venue images are 288×250px. The Update places action remains accessible at compact widths. Temporary QA wrapper removed before packaging; no software was installed.
+
+## Copy reduction — October 21, 2026
+
+Removed the extra room labels and taglines at the user's request, including San Diego / Step inside, the numbered edit label and the atmosphere/gesture slogan. Also removed redundant mood description, card numbering, gathering introduction, brand tagline and curation sentence. Kept working controls, sources and factual venue details. Adjusted spacing around the shorter room heading. Browser inspection confirmed the room heading now contains only the active mood name.

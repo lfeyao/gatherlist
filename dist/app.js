@@ -1,7 +1,7 @@
-import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=deck-20261021';
-import {sampleSuppliers, demoBrief} from './sample.js?v=deck-20261021';
-import {researchSuppliers} from './research.js?v=deck-20261021';
-import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=deck-20261021';
+import {TAGS, money, normalize, validateSupplier, rank, extractListing, parseCSV, toCSV, proposal, CSV_HEADERS} from './core.js?v=quiet-20261021';
+import {sampleSuppliers, demoBrief} from './sample.js?v=quiet-20261021';
+import {researchSuppliers} from './research.js?v=quiet-20261021';
+import {MOODS, moods, starterPresentation, groupByMood, primaryMood, distinctVenues, migrateDistinctCatalog} from './discovery.js?v=quiet-20261021';
 
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
@@ -134,7 +134,7 @@ function render() {
   $('#quick-guests').value=state.brief.guests; $('#quick-budget').value=state.brief.budget;
   $$('[data-guests]').forEach(button=>{const on=Number(button.dataset.guests)===Number(state.brief.guests);button.classList.toggle('selected',on);button.setAttribute('aria-pressed',String(on));});
   $('#browse-context').textContent=`${state.brief.category==='venue'?'Spaces':'Options'} for ${state.brief.guests} people in ${state.brief.city}`;
-  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Places to linger.':'Find your kind of together.';
+  $('#browse-title').textContent=view==='shortlist'?'Your kind of places.':view==='inbox'?'A closer look at your sources.':roomMode?'Venues':'Find your kind of together.';
   $('#clear-mood').hidden=roomMode||!selectedMood;
   renderRoom(roomMode); $('#mode-label').hidden=state.mode!=='demo';
   $('#workspace-banner').classList.toggle('notice-warning',!!storageWarning);
@@ -154,15 +154,14 @@ function renderRoom(enabled){
   $$('[data-layout]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===discoveryLayout)));
   if(!enabled)return;
   const mood=moods.find(m=>m.id===activeRoom),index=MOODS.indexOf(activeRoom);
-  $('#room-copy').innerHTML=`<span class="room-number">The ${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')} edit</span><h1>${escape(mood.title)}</h1><p>${escape(mood.line)}</p>`;
-  $('#collection-mood').textContent=mood.title+' / '+state.brief.city;
+  $('#room-copy').innerHTML=`<h1>${escape(mood.title)}</h1>`;
   $('#browse-context').textContent=mood.title+' · '+state.brief.guests+' guests in '+state.brief.city;
   $('#room-position').textContent=`${String(index+1).padStart(2,'0')} / ${String(moods.length).padStart(2,'0')}`;
   $('#room-credit').textContent=`Photo: ${mood.photo.credit} ↗`;
   $('#room-credit').href=mood.photo.source;
   const firstRail=!$('#room-rail').children.length;
   if(firstRail){
-    $('#room-rail').innerHTML=moods.map((m,i)=>`<button data-room="${m.id}" aria-label="Enter ${escape(m.title)}" aria-pressed="false">${photoMarkup({...m.photo,url:roomPhotoUrl(m.photo,300)},'',false)}<span class="deck-caption"><small>${String(i+1).padStart(2,'0')}</small><span>${escape(m.title)}</span><b aria-hidden="true">↗</b></span></button>`).join('');
+    $('#room-rail').innerHTML=moods.map((m,i)=>`<button data-room="${m.id}" aria-label="Enter ${escape(m.title)}" aria-pressed="false">${photoMarkup({...m.photo,url:roomPhotoUrl(m.photo,300)},'',false)}<span class="deck-caption"><span>${escape(m.title)}</span><b aria-hidden="true">↗</b></span></button>`).join('');
   }
   $$('[data-room]').forEach((button,i)=>{button.setAttribute('aria-pressed',String(button.dataset.room===activeRoom));const distance=(i-index+MOODS.length+4)%MOODS.length-4;button.style.setProperty('--deck-offset',distance);button.style.setProperty('--deck-turn',distance*5+'deg');button.style.setProperty('--deck-drop',Math.abs(distance)*12+'px');button.style.setProperty('--deck-opacity',Math.abs(distance)>2?'0':'1');button.tabIndex=distance===0?0:-1;});
   if(shownRoom!==activeRoom){
