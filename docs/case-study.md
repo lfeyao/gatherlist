@@ -2,6 +2,10 @@
 
 Saveurel is an early venue-discovery prototype for small gatherings in San Diego. It was built through collaboration between Dai Yu and Codex beginning October 20, 2026. Earlier iterations used the names Gatherlist and Supperlune; the repository keeps its original identifier.
 
+![Saveurel room view, local development preview](saveurel-preview.png)
+
+This is the current source running locally, not a claim of a public live deployment.
+
 ## The customer problem
 
 An organizer usually starts with a group size, an occasion and a budget. Saveurel turns those choices into visual room moods, source-linked venue candidates and a shortlist of questions to confirm with the venue.
@@ -19,7 +23,7 @@ An organizer usually starts with a group size, an occasion and a budget. Saveure
 
 ![Room carousel iteration](room-carousel.png)
 
-These screenshots show earlier branding. Current source uses Saveurel. Venue photography remains third-party material and is not covered by a code license.
+The two iteration screenshots above show earlier branding. Current source uses Saveurel. Venue photography remains third-party material and is not covered by a code license.
 
 ## Human direction and Codex contribution
 

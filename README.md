@@ -2,6 +2,8 @@
 
 A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. Saveurel is the current working identity, with a crescent-and-table emblem. Trademark clearance has not been performed; the repository and URL retain the original Gatherlist identifier.
 
+![Saveurel room view, local development preview](docs/saveurel-preview.png)
+
 ## Try it
 
 Source and screenshots are available in this repository. Start with the [case study](docs/case-study.md). The hosted preview at https://gatherlist-daiyu.lfeyao.chatgpt.site is owner-private; the source can be reviewed without access to that preview.
