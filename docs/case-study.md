@@ -42,3 +42,7 @@ There are no established customers, bookings, revenue, downloads or independent 
 ## Next useful contributions
 
 Make the discovery starter easy to adapt to another city, improve accessibility, add source-validation tooling, and document recurring maintenance workflows. These are proposed improvements, not existing features or promised program commitments.
+
+## Builder introduction
+
+[Dai Yu’s 24-second Codex Ambassador introduction](dai-yu-codex-introduction.mp4). This is an applicant introduction, not a platform demonstration or evidence of program acceptance.
