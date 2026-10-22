@@ -126,3 +126,5 @@ Login audit: the real hosted button navigated to OpenAI's Welcome back screen, w
 Guest presets updated to 2, 4, 6, 8, 10, 12, and 24+. The last preset starts at 24; exact larger counts remain adjustable with the stepper. Seven equal buttons fit in one row on mobile.
 
 2026-10-22 — Added a managed D1 signup database while preserving ChatGPT authentication and the existing private audience. Migrated the static shell into Vinext routes without changing the venue browsing design. Added server-authorized member enrollment, own-profile reads, and an account screen. Browser-local shortlists remain separate. Generated and reviewed schema-only Drizzle migration. All 30 tests pass; local mock sign-in → workspace enrollment → account page verified.
+
+2026-10-22 — Selected Saveurel as the working name. Updated visible wordmarks, page titles, account page, and project metadata. Existing browser-storage keys, database records, and hosted address retained. Trademark clearance remains pending.

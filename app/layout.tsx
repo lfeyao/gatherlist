@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Supperlune",
+  title: "Saveurel",
   description: "Find your kind of gathering in San Diego.",
   icons: {
     icon: "/favicon.svg",

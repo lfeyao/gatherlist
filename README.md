@@ -1,6 +1,6 @@
-# Supperlune
+# Saveurel
 
-A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. Supperlune is the current working identity, with a crescent-and-table emblem. Trademark clearance has not been performed; the repository and URL retain the original Gatherlist identifier.
+A visual venue discovery and shortlist app for small gatherings in San Diego. Built collaboratively with Codex on October 20, 2026. Saveurel is the current working identity, with a crescent-and-table emblem. Trademark clearance has not been performed; the repository and URL retain the original Gatherlist identifier.
 
 ## Try it
 
