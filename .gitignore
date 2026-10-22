@@ -49,3 +49,7 @@ yarn-error.log*
 
 # OS metadata
 .DS_Store
+
+# Oracle deployment runtime
+/deploy/oracle/app/data/
+/deploy/oracle/oracle.env

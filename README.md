@@ -54,3 +54,7 @@ Cloudflare D1 binding `DB` stores the `members` table: site-scoped authenticated
 The former static interface is preserved in `ui/` (HTML) and `public/` (assets). Vinext serves the existing design with protected account routes. Generate schema-only migrations with `npm run db:generate`, build through the Sites helper, and apply migrations locally before browser QA. Sites applies production migrations during publication. Local test identities are never copied into production.
 
 Verification: 30 tests including real SQLite signup persistence, idempotent enrollment, per-user reads, cross-origin rejection, and unavailable database handling. Local browser flow uses the starter’s development-only identity; live identity must come from dispatch.
+
+## Oracle private preview
+
+A portable Node/SQLite deployment is prepared under `deploy/oracle/`. See [deployment instructions](deploy/oracle/README.md). It uses standard OIDC and an owner email allowlist rather than trusting Sites-injected identity headers. Oracle resources and a real OIDC round-trip must be verified before reporting the preview live.
