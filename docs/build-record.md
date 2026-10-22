@@ -134,3 +134,5 @@ Guest presets updated to 2, 4, 6, 8, 10, 12, and 24+. The last preset starts at 
 ## Publication preparation — October 22, 2026
 
 The user authorized making the GitHub repository public and applying to both Codex Ambassadors and Codex for Open Source. A local pattern scan covered all 22 reachable commits and 328 unique blobs, finding no obvious private keys or common API-token patterns; this is not a guarantee of exhaustive detection. Added a reviewer-facing case study, contribution guidance and third-party notices, and corrected obsolete local setup instructions. No production database, credentials or customer records are included. ARM and AMD Oracle launch attempts both failed for lack of free capacity; the application remains hosted privately on Sites.
+
+The owner explicitly approved releasing Saveurel’s original code under MIT on October 22, 2026, while preserving third-party notices and excluding venue photography from the grant.

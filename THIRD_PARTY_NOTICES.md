@@ -1,6 +1,6 @@
 # Third-party material
 
-Saveurel is built on an OpenAI Sites starter with third-party dependencies and UI components. Their original notices and licenses continue to apply. A code license for Saveurel does not grant rights in third-party material.
+Saveurel is built on an OpenAI Sites starter with third-party dependencies and UI components. Their original notices and licenses continue to apply. The MIT license in `LICENSE` applies to Saveurel’s original code and does not grant rights in third-party material.
 
 - Instrument Sans: `public/fonts/OFL.txt`, SIL Open Font License.
 - Cormorant Garamond: `public/fonts/Cormorant-OFL.txt`, SIL Open Font License.

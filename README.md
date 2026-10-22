@@ -62,6 +62,8 @@ Verification: 30 tests including real SQLite signup persistence, idempotent enro
 
 A portable Node/SQLite deployment is prepared under `deploy/oracle/`. See [deployment instructions](deploy/oracle/README.md). It uses standard OIDC and an owner email allowlist rather than trusting Sites-injected identity headers. Oracle resources and a real OIDC round-trip must be verified before reporting the preview live.
 
-## Contributing and asset rights
+## License, contributing and asset rights
+
+Saveurel’s original code is available under the [MIT license](LICENSE). This grant excludes third-party photography, fonts and other material governed by separate terms.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, useful contributions and verification. Venue photography remains owned by its respective rights holders; linked images are not licensed for redistribution by this repository. Font, starter and component notices retain their own terms. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
