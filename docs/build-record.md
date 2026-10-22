@@ -130,3 +130,7 @@ Guest presets updated to 2, 4, 6, 8, 10, 12, and 24+. The last preset starts at 
 2026-10-22 — Selected Saveurel as the working name. Updated visible wordmarks, page titles, account page, and project metadata. Existing browser-storage keys, database records, and hosted address retained. Trademark clearance remains pending.
 
 2026-10-22 — Prepared an independent Oracle private-preview deployment: Node HTTP server, persistent SQLite, authorization-code OIDC with PKCE/state/nonce, owner-only email allowlist, Docker/Compose, and Caddy configuration. Six Oracle deployment tests pass, including an actual HTTP server restart with persistent sessions and signup data. Oracle console: active trial in San Jose; A1 1 CPU/6 GB Ubuntu ARM configuration prepared, not launched pending approval to install the existing administrator SSH key.
+
+## Publication preparation — October 22, 2026
+
+The user authorized making the GitHub repository public and applying to both Codex Ambassadors and Codex for Open Source. A local pattern scan covered all 22 reachable commits and 328 unique blobs, finding no obvious private keys or common API-token patterns; this is not a guarantee of exhaustive detection. Added a reviewer-facing case study, contribution guidance and third-party notices, and corrected obsolete local setup instructions. No production database, credentials or customer records are included. ARM and AMD Oracle launch attempts both failed for lack of free capacity; the application remains hosted privately on Sites.

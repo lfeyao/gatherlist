@@ -29,7 +29,7 @@ Urban Kitchen Catering remains a separate sourced vendor: [official group dining
 
 ## Photography
 
-Photos are embedded from official venue pages and remain third-party assets. `dist/discovery.js` records each exact asset URL, descriptive alt text, source page and credit. General venue photos are labeled as such, rather than claiming to depict an exact bookable room. Credits include Tangerine Tree Photography for the Japanese Friendship Garden, Zack Benson for Juniper & Ivy, Daniel Lang for MCASD, and The Shalom Imaginative for Mingei. Other images are credited to the venue. Remote assets may change independently of the repository. Fictional demo entries do not use real venue thumbnails.
+Photos are embedded from official venue pages and remain third-party assets. `public/discovery.js` records each exact asset URL, descriptive alt text, source page and credit. General venue photos are labeled as such, rather than claiming to depict an exact bookable room. Credits include Tangerine Tree Photography for the Japanese Friendship Garden, Zack Benson for Juniper & Ivy, Daniel Lang for MCASD, and The Shalom Imaginative for Mingei. Other images are credited to the venue. Remote assets may change independently of the repository. Fictional demo entries do not use real venue thumbnails.
 
 ## Matching limits
 

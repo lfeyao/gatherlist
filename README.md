@@ -4,14 +4,17 @@ A visual venue discovery and shortlist app for small gatherings in San Diego. Bu
 
 ## Try it
 
-The private Site is registered at https://gatherlist-daiyu.lfeyao.chatgpt.site . See the deployment receipt for publication status. It is owner-private; this is not yet a public application example.
+Source and screenshots are available in this repository. Start with the [case study](docs/case-study.md). The hosted preview at https://gatherlist-daiyu.lfeyao.chatgpt.site is owner-private; the source can be reviewed without access to that preview.
 
 ```sh
+npm ci
 npm test
-npm run preview
+npm run dev
 ```
 
-Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package installation, API key or build step is needed. Instrument Sans and Cormorant Garamond are self-hosted with their OFL licenses in `dist/fonts/`.
+Open http://127.0.0.1:5173. Use Node 24 LTS (the root package requires at least Node 22.13). The development server uses the starter’s local test identity; it is not proof of production authentication. No model API key is needed for browsing or matching. Instrument Sans and Cormorant Garamond are self-hosted with their OFL licenses in `public/fonts/`.
+
+Additional portable-server checks: `node --test deploy/oracle/app/*.test.mjs`. See [Oracle deployment instructions](deploy/oracle/README.md) for the independent Node/SQLite version.
 
 ## What works
 
@@ -40,10 +43,10 @@ This version is a sourcing tool. No automated social-platform collection, messag
 - `docs/build-record.md`: scope, Codex attribution, verification and limits.
 - `docs/sources.md`: primary sources behind the San Diego starter.
 - `docs/business-plan.md`: how to validate a small matching service around this tool.
-- `docs/application-draft.md`: program answers and a 30-second introduction script.
+- `docs/case-study.md`: product overview, human direction, Codex contribution and current status.
 - `docs/test-output.txt`: automated checks.
 
-The project is original code in this chat. Greg Isenberg's episode supplied the business inspiration; the app does not use his code or imply his endorsement. TickerToThesis is a separate upstream-derived project and is not the basis of this app.
+The venue discovery interface and business logic were developed in this chat on top of an OpenAI Sites starter and third-party dependencies. Greg Isenberg's episode supplied the business inspiration; the app does not use his code or imply his endorsement. TickerToThesis is a separate upstream-derived project and is not the basis of this app.
 
 ## Signup database
 
@@ -58,3 +61,7 @@ Verification: 30 tests including real SQLite signup persistence, idempotent enro
 ## Oracle private preview
 
 A portable Node/SQLite deployment is prepared under `deploy/oracle/`. See [deployment instructions](deploy/oracle/README.md). It uses standard OIDC and an owner email allowlist rather than trusting Sites-injected identity headers. Oracle resources and a real OIDC round-trip must be verified before reporting the preview live.
+
+## Contributing and asset rights
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, useful contributions and verification. Venue photography remains owned by its respective rights holders; linked images are not licensed for redistribution by this repository. Font, starter and component notices retain their own terms. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
