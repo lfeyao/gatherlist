@@ -18,7 +18,7 @@ Open http://127.0.0.1:8765 . Node 22 and Python 3 are sufficient; no package ins
 - Room view: rotate nine moods with arrows, keyboard or touch swipes; room photography, site colours and venue suggestions change together. Switch to the equal-size Mood grid at any time. Your view and mood are remembered.
 
 - Toggle Light/Dark with the header sun/moon icon. The initial appearance follows the system until you choose; the choice persists separately from venue data.
-- Sign up / Log in uses hosted ChatGPT authentication and returns to a separate workspace for shortlists and listing tools. The existing owner-private audience remains unchanged; browser-local records do not become cloud-synced accounts.
+- Sign up / Log in uses hosted ChatGPT authentication and returns to a protected workspace. The workspace records the authenticated member in managed Cloudflare D1. The existing owner-private audience remains unchanged. Shortlists and research remain browser-local; signup records are durable.
 
 - Browse nine photographic mood groups, three across on desktop, with two different venues directly beneath each mood; no venue repeats across categories.
 - Start with guest count, browse the mood, then compare estimated cost or an honest quote-needed label.
@@ -44,3 +44,13 @@ This version is a sourcing tool. No automated social-platform collection, messag
 - `docs/test-output.txt`: automated checks.
 
 The project is original code in this chat. Greg Isenberg's episode supplied the business inspiration; the app does not use his code or imply his endorsement. TickerToThesis is a separate upstream-derived project and is not the basis of this app.
+
+## Signup database
+
+Cloudflare D1 binding `DB` stores the `members` table: site-scoped authenticated user ID (primary key), email, optional display name, original signup timestamp, and most recent workspace visit. Returning visitors update their identity and last-seen timestamp without duplicate rows. Passwords remain with ChatGPT.
+
+`POST /api/account` registers the authenticated visitor on workspace arrival and requires a same-origin browser request. `GET /api/account` returns only that visitor’s record. Neither accepts a user ID from the browser. `/account` displays the signed-in visitor’s profile. There is no public member directory or anonymous signup write. The owner can inspect records in Sites Settings’ database viewer. Marketing subscriptions are not collected or implied.
+
+The former static interface is preserved in `ui/` (HTML) and `public/` (assets). Vinext serves the existing design with protected account routes. Generate schema-only migrations with `npm run db:generate`, build through the Sites helper, and apply migrations locally before browser QA. Sites applies production migrations during publication. Local test identities are never copied into production.
+
+Verification: 30 tests including real SQLite signup persistence, idempotent enrollment, per-user reads, cross-origin rejection, and unavailable database handling. Local browser flow uses the starter’s development-only identity; live identity must come from dispatch.

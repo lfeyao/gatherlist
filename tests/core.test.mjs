@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateSupplier,estimate,evaluate,rank,extractListing,parseCSV,toCSV,proposal} from '../dist/core.js';
-import {sampleSuppliers,demoBrief} from '../dist/sample.js';
-import {researchSuppliers} from '../dist/research.js';
+import {validateSupplier,estimate,evaluate,rank,extractListing,parseCSV,toCSV,proposal} from '../public/core.js';
+import {sampleSuppliers,demoBrief} from '../public/sample.js';
+import {researchSuppliers} from '../public/research.js';
 const supplier=overrides=>validateSupplier({name:'A space',category:'venue',city:'San Diego',capacity:30,priceLow:1000,priceHigh:1500,pricing:'flat',tags:['Private room'],...overrides});
 test('per-person and hourly estimates use guest count and event duration',()=>{
   assert.deepEqual(estimate(supplier({pricing:'person',priceLow:50,priceHigh:70}),demoBrief),{low:1200,high:1680});

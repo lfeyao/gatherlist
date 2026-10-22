@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const script=fs.readFileSync(new URL('../dist/theme.js',import.meta.url),'utf8');
+const script=fs.readFileSync(new URL('../public/theme.js',import.meta.url),'utf8');
 function browser({saved=null,dark=false,blocked=false}={}){
   const events={},changes={},stored=new Map(),meta={},icon={},attributes={};let ready=false;
   const button={setAttribute:(k,v)=>attributes[k]=v,addEventListener:(name,fn)=>changes[name]=fn};

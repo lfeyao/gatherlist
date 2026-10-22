@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {moods,MOODS,groupByMood,starterPresentation,venueIdentity,migrateDistinctCatalog} from '../dist/discovery.js';
-import {researchSuppliers} from '../dist/research.js';
-import {demoBrief} from '../dist/sample.js';
-import {rank} from '../dist/core.js';
+import {moods,MOODS,groupByMood,starterPresentation,venueIdentity,migrateDistinctCatalog} from '../public/discovery.js';
+import {researchSuppliers} from '../public/research.js';
+import {demoBrief} from '../public/sample.js';
+import {rank} from '../public/core.js';
 test('nine editorial mood groups each contain real venue leads for the default brief',()=>{
   const results=rank(researchSuppliers,demoBrief).filter(r=>r.status!=='outside');
   const groups=groupByMood(results);
