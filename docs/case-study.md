@@ -45,4 +45,4 @@ Make the discovery starter easy to adapt to another city, improve accessibility,
 
 ## Builder introduction
 
-[Dai Yu’s 24-second Codex Ambassador introduction](dai-yu-codex-introduction.mp4). This is an applicant introduction, not a platform demonstration or evidence of program acceptance.
+[Dai Yu’s 24-second Codex Ambassador introduction](https://lfeyao.github.io/gatherlist/). This is an applicant introduction, not a platform demonstration or evidence of program acceptance.
